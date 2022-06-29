@@ -9,6 +9,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.header a{
+  margin-right: 30px;
+}
   .ui.cards > .card > .image {
     height: 250px;
     padding: 20px;
@@ -106,3 +109,71 @@
     font-size: 18px;
     margin-left: 0;
   }
+
+
+.bron-forms{
+  width: 500px;
+  margin: 0 auto;
+  
+}
+
+.bron-forms h1{
+  text-align: center;
+  margin: 50px 0;
+}
+.bron-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.bron-form input{
+  margin-bottom: 5px;
+  border: 1px solid gray;
+  outline: none;
+  box-shadow: none;
+  padding: 15px 10px;
+  border-radius: 4px;
+  width: 100%;
+}
+.form-inputs{
+  margin-bottom: 15px;
+}
+.error{
+  color: rgb(160, 7, 7);
+}
+
+.bron-form button{
+  border: 1px solid gray;
+  outline: none;
+  box-shadow: none;
+  padding: 15px 10px;
+  border-radius: 4px;
+  background-color: #0d6efd;
+  color: #fff;
+  font-size: 20px;
+}
+
+.form-dates{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bron-link{
+  display: flex;
+  justify-content: end;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.back{
+  margin-top: 20px;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  outline: none;
+  box-shadow: none;
+  border-radius: 4px;
+  background: white;
+  float: right;
+}

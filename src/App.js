@@ -4,9 +4,10 @@ import RoomListing from "./containers/RoomListing";
 import Header from "./containers/Header";
 import RoomDetail from "./containers/RoomDetail";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import Floor from "./containers/Floor";
 import Bron from "./containers/Bron";
+import BronComponent from "./containers/BronComponent";
 import FloorDetails from "./containers/FloorDetail";
 import { BrowserRouter } from "react-router-dom";
 
@@ -18,10 +19,11 @@ function App() {
           <Header />
           <Switch>
             <Route path="/" exact component={Floor} />
-            <Route path="/room/:id" component={FloorDetails} />
-            <Route path="/room/:roomId" component={RoomDetail} />
+            <Route path="/room/:FlourId" component={FloorDetails} />
             <Route path="/room" component={RoomListing} />
-            <Route path="/bron" component={Bron} />
+            <Route path="/room-detail/:id" component={RoomDetail} />
+            <Route path="/bron/:roomId" component={Bron} />
+            <Route path="/brons" component={BronComponent} />
             <Route>404 Not Found!</Route>
           </Switch>
         </Router>

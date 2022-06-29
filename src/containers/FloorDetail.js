@@ -7,8 +7,7 @@ import ProductComponent from "./RoomComponent";
 
 const FloorDetails = () => {
 
-  const { id } = useParams();
-  console.log("param", id);
+  const { FlourId } = useParams();
 
   const rooms = useSelector((state) => state.allRooms.rooms);
   const dispatch = useDispatch();
@@ -21,11 +20,10 @@ const FloorDetails = () => {
 
     let data = [...response.data]
 
-    console.log('data', data);
 
-    if (id) {
+    if (FlourId) {
       console.log("tese");
-      data = data.filter((room) => room.FlourId === parseInt(id))
+      data = data.filter((room) => room.FlourId === parseInt(FlourId))
     }
 
     dispatch(setRoom(data));

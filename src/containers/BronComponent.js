@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setBrons } from "../redux/actions/bronActions";
 
 const BronComponent = () => {
+
+  const dispatch = useDispatch();
+  const fetchBrons = async () => {
+    const response = await axios
+      .get("https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron")
+      .catch((err) => {
+        console.log("Err: ", err);
+      });
+    dispatch(setBrons(response.data));
+  };
+
+  useEffect(() => {
+    fetchBrons();
+  }, []);
   const brons = useSelector((state) => state.allBrons.brons);
   const renderList = brons.map((bron) => {
-    const { id, FullName, TotalPrice,startDate,endDate } = bron;
+    const { id, fullName, totalPrice,startDate,endDate } = bron;
     return (
       <div className="four wide column" key={id}>
-        <Link to={`/bron/${id}`}>
-          <div className="ui link cards">
+         <div className="ui link cards">
             <div className="card">
               <div className="image floor">
                 <h1>Bron</h1>
               </div>
               <div className="content">
-                <div className="header">  {FullName}</div>
-                <div className="meta price">Total Price : {TotalPrice}</div>
+                <div className="header">  {fullName}</div>
+                <div className="meta price">Total Price : {totalPrice}</div>
                 <p>
                   <p> Start Date {startDate}</p>
                   <p> End Date {endDate}</p>
@@ -24,11 +39,10 @@ const BronComponent = () => {
               </div>
             </div>
           </div>
-        </Link>
       </div>
     );
   });
-  return <>{renderList}</>;
+  return <div className="ui grid container">{renderList}</div>;
 };
 
 export default BronComponent;

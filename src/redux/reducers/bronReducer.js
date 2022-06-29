@@ -1,17 +1,16 @@
 import { ActionTypes } from "../contants/actionTypes";
 
 const initialState = {
-    brons: []
-}
-
+  brons: [],
+};
 
 export const bronReducer = (state = initialState, { type, payload }) => {
-    switch (type) {
-        case ActionTypes.SET_BRON:
-            return { ...state, brons: payload };
-        default:
-            return state;
-    }
-}
-
-
+  switch (type) {
+    case ActionTypes.SET_BRON:
+      return { ...state, brons: payload };
+    case ActionTypes.ADD_BRONS:
+      return { ...state };
+    default:
+      return state;
+  }
+};
