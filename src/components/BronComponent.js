@@ -21,20 +21,21 @@ const BronComponent = () => {
   }, []);
   const brons = useSelector((state) => state.allBrons.brons);
   const renderList = brons.map((bron) => {
-    const { id, fullName, totalPrice,startDate,endDate } = bron;
+    const { id, fullName, totalPrice,startDate,endDate,RoomId } = bron;
     return (
       <div className="four wide column" key={id}>
          <div className="ui link cards">
             <div className="card">
               <div className="image floor">
                 <h1>Bron</h1>
+                <p>Room Number : {RoomId}</p>
               </div>
               <div className="content">
                 <div className="header">  {fullName}</div>
                 <div className="meta price">Total Price : {totalPrice}</div>
                 <p>
-                  <p> Start Date {startDate}</p>
-                  <p> End Date {endDate}</p>
+                  <p> Start Date : {startDate}</p>
+                  <p> End Date : {endDate}</p>
                 </p>
               </div>
             </div>

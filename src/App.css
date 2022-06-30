@@ -18,11 +18,14 @@
     width: 100%;
     background: green;
     margin: auto;
+    text-decoration: none !important;
   }
 
   .ui.cards > .card > .image.bron {
     background: red !important;
   }
+
+ 
 
   .ui.cards > .card > .image.floor{
     background: white;
@@ -159,6 +162,12 @@
   align-items: center;
 }
 
+.bron-links{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .bron-link{
   display: flex;
   justify-content: end;
@@ -176,4 +185,31 @@
   border-radius: 4px;
   background: white;
   float: right;
+}
+
+.bron-date{
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none !important;
+}
+
+
+.room-details{
+  padding: 10px 20px;
+  background-color: green;
+  width: 200px;
+  height: 200px;
+  border-radius: 4px;
+}
+
+ol{
+  color: white;
+}
+
+ol li{
+  margin-bottom: 10px;
+}
+
+ol li p{
+  margin-bottom: 5px !important;
 }

@@ -3,7 +3,7 @@ import { ActionTypes } from "../contants/actionTypes";
 
 export const setBrons = (brons) => {
   return {
-    type: ActionTypes.SET_BRON,
+    type: ActionTypes.SET_BRONS,
     payload: brons,
   };
 };
@@ -11,6 +11,13 @@ export const setBrons = (brons) => {
 export const addBron = () => {
   return {
     type: ActionTypes.ADD_BRONS,
+  };
+};
+
+export const setBron = (bron) => {
+  return {
+    type: ActionTypes.SET_BRON,
+    payload: bron,
   };
 };
 

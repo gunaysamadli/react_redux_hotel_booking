@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import RoomListing from "./containers/RoomListing";
-import Header from "./containers/Header";
-import RoomDetail from "./containers/RoomDetail";
+import RoomListing from "./components/RoomListing";
+import Header from "./components/Header";
+import RoomDetail from "./components/RoomDetail";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Floor from "./containers/Floor";
-import Bron from "./containers/Bron";
-import BronComponent from "./containers/BronComponent";
-import FloorDetails from "./containers/FloorDetail";
+import Floor from "./components/Floor";
+import Bron from "./components/Bron";
+import BronComponent from "./components/BronComponent";
+import FloorDetails from "./components/FloorDetail";
 import { BrowserRouter } from "react-router-dom";
 
 function App() {

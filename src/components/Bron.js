@@ -10,7 +10,14 @@ import { selectedRoom } from "../redux/actions/roomActions";
 const Bron = () => {
   const { roomId } = useParams();
 
-  let room = useSelector((state) => state.room);
+  // const brons = useSelector((state) => state.allBrons.brons);
+
+  // let date = brons.filter(
+  //   (bron) =>
+  //     bron.startDate <= values.startDate && bron.endDate > values.endDate
+  // );
+
+  let room = useSelector((state) => state.allRooms.current);
   const { price } = room;
   const fetchRoom = async (id) => {
     const response = await axios
@@ -48,10 +55,7 @@ const Bron = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-
     let newErrors = Validation(values);
-
-    console.log("newErrors", newErrors);
 
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
@@ -111,7 +115,7 @@ const Bron = () => {
           {errors.select && <p className="error">{errors.select}</p>}
           <div className="form-inputs">
             <span>Total Price : </span>
-            <span>{totalPrice ? totalPrice : price} $</span>
+            <span>{totalPrice && totalPrice > 0 ? totalPrice : price} $</span>
           </div>
           <button type="submit">Bron the Room</button>
         </form>
