@@ -10,8 +10,6 @@ const RoomDetail = () => {
 
   const brons = useSelector((state) => state.allBrons.brons);
 
- 
-
   const [bronData, setBronData] = useState([]);
 
   useEffect(() => {
@@ -57,12 +55,8 @@ const RoomDetail = () => {
               <div className="meta price">Price : $ {price}</div>
             </div>
             <div className="bron-links">
-              <div className="bron-link">
-                Edit
-              </div>
-              <div className="bron-link">
-                UnBooking
-              </div>
+              <div className="bron-link">Edit</div>
+              <div className="bron-link">UnBooking</div>
             </div>
           </div>
         </div>

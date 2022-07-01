@@ -10,13 +10,6 @@ import { selectedRoom } from "../redux/actions/roomActions";
 const Bron = () => {
   const { roomId } = useParams();
 
-  // const brons = useSelector((state) => state.allBrons.brons);
-
-  // let date = brons.filter(
-  //   (bron) =>
-  //     bron.startDate <= values.startDate && bron.endDate > values.endDate
-  // );
-
   let room = useSelector((state) => state.allRooms.current);
   const { price } = room;
   const fetchRoom = async (id) => {
@@ -36,12 +29,17 @@ const Bron = () => {
     fullName: "",
     startDate: "",
     endDate: "",
-    select: "",
     totalPrice: "",
     RoomId: roomId,
   });
 
+  const brons = useSelector((state) => state.allBrons.brons);
+
   const [errors, setErrors] = useState({});
+
+  console.log("brons", brons);
+
+  let errorDate = brons.filter((bron) => bron.endDate >= values.startDate);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,8 +53,7 @@ const Bron = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    let newErrors = Validation(values);
-
+    let newErrors = Validation(values, brons);
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
     } else {
@@ -110,9 +107,11 @@ const Bron = () => {
                 onChange={handleChange}
               />
               {errors.endDate && <p className="error">{errors.endDate}</p>}
+              {errors.date && <p className="error">{errors.date}</p>}
             </div>
           </div>
           {errors.select && <p className="error">{errors.select}</p>}
+          {errors.errorDate && <p className="error">{errors.errorDate}</p>}
           <div className="form-inputs">
             <span>Total Price : </span>
             <span>{totalPrice && totalPrice > 0 ? totalPrice : price} $</span>
