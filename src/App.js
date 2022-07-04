@@ -10,6 +10,7 @@ import Bron from "./components/Bron";
 import BronComponent from "./components/BronComponent";
 import FloorDetails from "./components/FloorDetail";
 import { BrowserRouter } from "react-router-dom";
+import EditBron from "./components/EditBron";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/room" component={RoomListing} />
             <Route path="/room-detail/:id" component={RoomDetail} />
             <Route path="/bron/:roomId" component={Bron} />
+            <Route path="/editBron/:id" component={EditBron} />
             <Route path="/brons" component={BronComponent} />
             <Route>404 Not Found!</Route>
           </Switch>

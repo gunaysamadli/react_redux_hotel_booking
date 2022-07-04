@@ -21,6 +21,40 @@ export const setBron = (bron) => {
   };
 };
 
+export const deleteSelectedBron = () => {
+  return {
+    type: ActionTypes.DELETE_BRON,
+  };
+};
+
+export const editBron = () => {
+  return {
+    type: ActionTypes.EDIT_BRON,
+  };
+};
+
+export const getBrons = () => {
+  return function (dispatch) {
+    axios
+      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron`)
+      .then((res) => {
+        dispatch(setBrons(res.data));
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getSingleBron = (id) => {
+  return function (dispatch) {
+    axios
+      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron/${id}`)
+      .then((res) => {
+        dispatch(setBron(res.data));
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
 export const bronAdded = (bron) => {
   return function (dispatch) {
     axios
@@ -32,13 +66,27 @@ export const bronAdded = (bron) => {
   };
 };
 
-export const bronUpdate = (bron,id) => {
+export const bronEdit = (bron, id) => {
   return function (dispatch) {
     axios
-      .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron${id}`, bron)
+      .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron/${id}`, bron)
       .then((res) => {
-        dispatch(bronUpdate());
+        dispatch(editBron());
       })
       .catch((error) => console.log(error));
   };
 };
+
+
+export const deleteBron = (id) => {
+  return async (dispatch) => {
+    axios
+      .delete(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron/${id}`)
+      .then((res) => {
+        dispatch(deleteSelectedBron());
+        dispatch(getBrons());
+      })
+      .catch((error) => console.log(error));
+  };
+};
+

@@ -8,5 +8,6 @@ export const ActionTypes = {
     SET_BRONS:"SET_BRONS",
     SET_BRON:"SET_BRON",
     ADD_BRONS:"ADD_BRONS",
-    EDIT_BRON:"EDIT_BRON"
+    EDIT_BRON:"EDIT_BRON",
+    DELETE_BRON:"DELETE_BRON"
   };

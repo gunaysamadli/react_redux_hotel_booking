@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ActionTypes } from "../contants/actionTypes";
 
 export const setRoom = (rooms) => {
@@ -11,6 +12,29 @@ export const selectedRoom = (room) => {
   return {
     type: ActionTypes.SELECTED_ROOMS,
     payload: room,
+  };
+};
+
+export const getSingleRoom= (id) => {
+  return function (dispatch) {
+    axios
+      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Room/${id}`)
+      .then((res) => {
+        dispatch(selectedRoom(res.data));
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+
+export const getRooms = () => {
+  return function (dispatch) {
+    axios
+      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Room`)
+      .then((res) => {
+        dispatch(setRoom(res.data));
+      })
+      .catch((error) => console.log(error));
   };
 };
 

@@ -35,11 +35,8 @@ const Bron = () => {
 
   const brons = useSelector((state) => state.allBrons.brons);
 
+
   const [errors, setErrors] = useState({});
-
-  console.log("brons", brons);
-
-  let errorDate = brons.filter((bron) => bron.endDate >= values.startDate);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -107,7 +104,6 @@ const Bron = () => {
                 onChange={handleChange}
               />
               {errors.endDate && <p className="error">{errors.endDate}</p>}
-              {errors.date && <p className="error">{errors.date}</p>}
             </div>
           </div>
           {errors.select && <p className="error">{errors.select}</p>}
