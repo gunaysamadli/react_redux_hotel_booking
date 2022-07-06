@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const RoomComponent = ({ room }) => {
-  
   const { id, person, price } = room;
 
   const brons = useSelector((state) => state.allBrons.brons);
@@ -15,7 +14,7 @@ const RoomComponent = ({ room }) => {
       let data = brons.filter((bron) => bron.RoomId === id);
       setBronData(data);
     }
-  }, [brons]);
+  }, [brons,id]);
 
   let today = new Date(),
     newDate =
@@ -25,7 +24,9 @@ const RoomComponent = ({ room }) => {
         ? "0" + (today.getMonth() + 1)
         : today.getMonth() + 1) +
       "-" +
-      today.getDate();
+      (today.getDate() + 1 <= 9
+        ? "0" + (today.getDate() + 1)
+        : today.getDate() + 1);
 
   let date = bronData.filter(
     (bron) => bron.startDate <= newDate && bron.endDate > newDate

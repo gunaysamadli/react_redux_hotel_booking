@@ -55,6 +55,8 @@ export const getSingleBron = (id) => {
   };
 };
 
+
+
 export const bronAdded = (bron) => {
   return function (dispatch) {
     axios
@@ -77,7 +79,6 @@ export const bronEdit = (bron, id) => {
   };
 };
 
-
 export const deleteBron = (id) => {
   return async (dispatch) => {
     axios
@@ -89,4 +90,3 @@ export const deleteBron = (id) => {
       .catch((error) => console.log(error));
   };
 };
-

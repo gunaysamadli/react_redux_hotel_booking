@@ -54,10 +54,9 @@ const RoomDetail = () => {
               <div className="header">Person Count : {person}</div>
               <div className="meta price">Price : $ {price}</div>
             </div>
-            <div className="bron-links">
-              <div className="bron-link">Edit</div>
-              <div className="bron-link">UnBooking</div>
-            </div>
+            <Link className="bron-link" to={`/bron/${id}`}>
+              Booking
+            </Link>
           </div>
         </div>
       ) : (

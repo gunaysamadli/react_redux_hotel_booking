@@ -35,7 +35,6 @@ const Bron = () => {
 
   const brons = useSelector((state) => state.allBrons.brons);
 
-
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {

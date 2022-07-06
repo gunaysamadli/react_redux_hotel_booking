@@ -1,7 +1,4 @@
-const Validation = (values) => {
-
-
-
+const Validation = (values, brons) => {
   let errors = {};
   if (!values.fullName) {
     errors.fullName = "Full name is required";
@@ -15,11 +12,17 @@ const Validation = (values) => {
   if (values.startDate > values.endDate) {
     errors.select = "The end date must be later than the start date";
   }
-  // if (brons.filter((bron) => ((bron.endDate >= values.startDate && bron.startDate <= values.startDate) ||
-  //   (bron.endDate >= values.endDate && bron.startDate <= values.endDate)))
-  // ) {
-  //   errors.errorDate = "The Room is already booked for these days";
-  // }
+  if (brons) {
+    let isBrons = brons.filter(
+      (bron) =>
+        (bron.endDate >= values.startDate &&
+          bron.startDate <= values.startDate) ||
+        (bron.endDate >= values.endDate && bron.startDate <= values.endDate)
+    );
+    if (isBrons && isBrons.length) {
+      errors.errorDate = "The Room is already booked for these days";
+    }
+  }
   return errors;
 };
 
