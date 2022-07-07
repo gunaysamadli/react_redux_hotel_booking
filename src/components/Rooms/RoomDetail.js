@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedRoom } from "../redux/actions/roomActions";
+import { selectedRoom } from "../../redux/actions/roomActions";
 import { Link } from "react-router-dom";
+import { getBrons } from "../../redux/actions/bronActions";
 
 const RoomDetail = () => {
   const { id } = useParams();
@@ -34,6 +35,11 @@ const RoomDetail = () => {
   useEffect(() => {
     if (id && id !== "") fetchRoomDetail(id);
   }, [id]);
+
+
+  useEffect(() => {
+    dispatch(getBrons());
+  }, [dispatch]);
 
   return (
     <div className="ui grid container">

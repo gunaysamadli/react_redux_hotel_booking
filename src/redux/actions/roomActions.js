@@ -28,8 +28,8 @@ export const getSingleRoom= (id) => {
 
 
 export const getRooms = () => {
-  return function (dispatch) {
-    axios
+  return async function (dispatch) {
+    await axios
       .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Room`)
       .then((res) => {
         dispatch(setRoom(res.data));

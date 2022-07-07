@@ -34,8 +34,8 @@ export const editBron = () => {
 };
 
 export const getBrons = () => {
-  return function (dispatch) {
-    axios
+  return async  function (dispatch) {
+    await axios
       .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron`)
       .then((res) => {
         dispatch(setBrons(res.data));
@@ -43,6 +43,8 @@ export const getBrons = () => {
       .catch((error) => console.log(error));
   };
 };
+
+
 
 export const getSingleBron = (id) => {
   return function (dispatch) {

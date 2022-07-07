@@ -216,3 +216,20 @@ ol li{
 ol li p{
   margin-bottom: 5px !important;
 }
+
+.filter{
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.date-warning{
+  word-spacing: 9px;
+  font-size: 40px;
+  color: brown;
+}
+
+.MuiFormControl-root , .MuiButton-contained{
+  margin-right: 10px !important;
+}

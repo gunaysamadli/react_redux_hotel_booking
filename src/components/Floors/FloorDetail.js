@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setRoom } from "../redux/actions/roomActions";
-import RoomComponent from "./RoomComponent";
-import { setBrons } from "../redux/actions/bronActions";
+import { setRoom } from "../../redux/actions/roomActions";
+import RoomComponent from "../Rooms/RoomComponent";
+import { setBrons } from "../../redux/actions/bronActions";
 
 const FloorDetails = () => {
   const { FlourId } = useParams();

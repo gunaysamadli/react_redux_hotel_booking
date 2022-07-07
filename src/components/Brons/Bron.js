@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Validation from "../Validations/Validation";
+import Validation from "../../Validations/Validation";
 import { useHistory, useParams } from "react-router-dom";
-import { bronEdit, getSingleBron, setBron } from "../redux/actions/bronActions";
+import { bronAdded } from "../../redux/actions/bronActions";
 import axios from "axios";
-import { getSingleRoom, selectedRoom } from "../redux/actions/roomActions";
+import { selectedRoom } from "../../redux/actions/roomActions";
 
-const EditBron = () => {
+const Bron = () => {
+  const { roomId } = useParams();
 
+  let room = useSelector((state) => state.allRooms.current);
+  const { price } = room;
+  const fetchRoom = async (id) => {
+    const response = await axios
+      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Room/${id}`)
+      .catch((err) => {
+        console.log("Err: ", err);
+      });
+    dispatch(selectedRoom(response.data));
+  };
 
-  const bron = useSelector((state) => state.allBrons.bron);
+  useEffect(() => {
+    if (roomId && roomId !== "") fetchRoom(roomId);
+  }, [roomId]);
 
   const [values, setValues] = useState({
     fullName: "",
     startDate: "",
     endDate: "",
     totalPrice: "",
-    RoomId: bron.id,
+    RoomId: roomId,
   });
 
   const brons = useSelector((state) => state.allBrons.brons);
@@ -40,44 +53,10 @@ const EditBron = () => {
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
     } else {
-      dispatch(bronEdit(values, id));
-      history.push("/brons");
+      dispatch(bronAdded(values));
+      history.push("/");
     }
   };
-
-
-  const { id } = useParams();
-
-  const fetchBron = async (id) => {
-    const response = await axios
-      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Bron/${id}`)
-      .catch((err) => {
-        console.log("Err: ", err);
-      });
-    dispatch(setBron(response.data));
-  };
-
-
-  useEffect(() => {
-    if (id && id !== "") fetchBron(id);
-  }, [id]);
-
-
-  useEffect(() => {
-    dispatch(getSingleBron(id));
-    dispatch(getSingleRoom(id))
-  }, [])
-
-  useEffect(() => {
-    if (bron) {
-      setValues({ ...bron })
-    }
-  }, [bron]);
-
-  let room = useSelector((state) => state.allRooms.current);
-
-  const { price } = room;
-
 
   let checkIn = Date.parse(values.startDate);
   let checkOut = Date.parse(values.endDate);
@@ -88,9 +67,9 @@ const EditBron = () => {
   return (
     <div className="ui grid container">
       <div className="bron-forms">
-        <h1>Edit Booking</h1>
+        <h1>Booking Hotel Room</h1>
         <form className="bron-form" onSubmit={handleSubmit}>
-          <h4>Book Number : {bron.id}</h4>
+          <h4>Book Number : {roomId}</h4>
           <div className="form-inputs">
             <input
               value={values.fullName}
@@ -124,16 +103,15 @@ const EditBron = () => {
                 onChange={handleChange}
               />
               {errors.endDate && <p className="error">{errors.endDate}</p>}
-              {errors.date && <p className="error">{errors.date}</p>}
             </div>
           </div>
           {errors.select && <p className="error">{errors.select}</p>}
           {errors.errorDate && <p className="error">{errors.errorDate}</p>}
           <div className="form-inputs">
-            <span>Total Price :  </span>
+            <span>Total Price : </span>
             <span>{totalPrice && totalPrice > 0 ? totalPrice : price} $</span>
           </div>
-          <button type="submit">Edit Booking </button>
+          <button type="submit">Bron the Room</button>
         </form>
         <button className="back" onClick={() => history.push("/room")}>
           Go back
@@ -143,4 +121,4 @@ const EditBron = () => {
   );
 };
 
-export default EditBron;
+export default Bron;
