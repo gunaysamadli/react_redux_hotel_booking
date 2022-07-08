@@ -16,8 +16,8 @@ export const selectedRoom = (room) => {
 };
 
 export const getSingleRoom= (id) => {
-  return function (dispatch) {
-    axios
+  return async function (dispatch) {
+    await axios
       .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/Room/${id}`)
       .then((res) => {
         dispatch(selectedRoom(res.data));

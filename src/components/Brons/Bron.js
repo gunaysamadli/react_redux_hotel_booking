@@ -7,7 +7,9 @@ import { bronAdded } from "../../redux/actions/bronActions";
 import axios from "axios";
 import { selectedRoom } from "../../redux/actions/roomActions";
 
+
 const Bron = () => {
+ 
   const { roomId } = useParams();
 
   let room = useSelector((state) => state.allRooms.current);

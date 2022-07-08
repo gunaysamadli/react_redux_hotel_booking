@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getBrons } from "../../redux/actions/bronActions";
 
 const RoomDetail = () => {
+
   const { id } = useParams();
 
   const brons = useSelector((state) => state.allBrons.brons);
@@ -41,30 +42,73 @@ const RoomDetail = () => {
     dispatch(getBrons());
   }, [dispatch]);
 
+  let today = new Date(),
+    newDate =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1 <= 9
+        ? "0" + (today.getMonth() + 1)
+        : today.getMonth() + 1) +
+      "-" +
+      (today.getDate() + 1 <= 9
+        ? "0" + (today.getDate() + 1)
+        : today.getDate() + 1);
+
+  let date = bronData.filter(
+    (bron) => bron.startDate <= newDate && bron.endDate > newDate
+  );
+
   return (
     <div className="ui grid container">
       {bronData.length > 0 ? (
-        <div className="ui link cards">
-          <div className="card">
-            <Link to={`/room-detail/${id}`} className="image bron">
-              <ol>
-                {bronData.map((bron) => (
-                  <li>
-                    <p className="bron-date">Start Date : {bron.startDate}</p>
-                    <p className="bron-date">End Date : {bron.endDate} </p>
-                  </li>
-                ))}
-              </ol>
-            </Link>
-            <div className="content">
+         date.length > 0 ? (
+          <div className="">
+          <div className="bron-bodies ">
+              {bronData.map((bron) => (
+                <div className="bron-body bron">
+                  <p className="bron-item">FullName : <span>{bron.fullName}</span></p>
+                  <p className="bron-item">Start Date : <span>{bron.startDate}</span></p>                   
+                  <p className="bron-item">End Date : <span>{bron.endDate}</span> </p>
+                  <p className="bron-item">Total Price : <span>{bron.totalPrice}</span></p>
+                </div>
+              ))}
+          </div>
+          <div className="content-bron">
+            <div>
               <div className="header">Person Count : {person}</div>
-              <div className="meta price">Price : $ {price}</div>
+              <div className="meta price">Room Price : $ {price}</div>
             </div>
             <Link className="bron-link" to={`/bron/${id}`}>
               Booking
             </Link>
           </div>
+         
         </div>
+
+         ) : (
+          <div className="">
+          <div className="bron-bodies">
+              {bronData.map((bron) => (
+                <div className="bron-body">
+                  <p className="bron-item">FullName : <span>{bron.fullName}</span></p>
+                  <p className="bron-item">Start Date : <span>{bron.startDate}</span></p>                   
+                  <p className="bron-item">End Date : <span>{bron.endDate}</span> </p>
+                  <p className="bron-item">Total Price : <span>{bron.totalPrice}</span></p>
+                </div>
+              ))}
+          </div>
+          <div className="content-bron">
+            <div>
+              <div className="header">Person Count : {person}</div>
+              <div className="meta price">Room Price : $ {price}</div>
+            </div>
+            <Link className="bron-link" to={`/bron/${id}`}>
+              Booking
+            </Link>
+          </div>
+         
+        </div>
+         )
       ) : (
         <div className="ui link cards">
           <div className="card">

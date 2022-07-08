@@ -9,6 +9,8 @@ import { LocalizationProvider } from "@mui/lab";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Slider from "@mui/material/Slider";
 
 const BronComponent = () => {
   const history = useHistory();
@@ -64,7 +66,7 @@ const BronComponent = () => {
   const handleFilter = () => {
     if (brons.length) {
       let filtered = brons.filter((item) =>
-      (filter.amount != null ? item.amount == filter.amount : true) &&
+        (filter.price != null ? item.price == filter.price : true) &&
         filter.startDate == null
           ? true
           : moment(item.startDate)
@@ -74,42 +76,65 @@ const BronComponent = () => {
           ? true
           : moment(item.endDate)
               .endOf("D")
-              .isSame(moment(filter.endDate).endOf("D")) 
+              .isSame(moment(filter.endDate).endOf("D"))
       );
       setSubjectBrons(filtered);
     }
   };
 
+  const [valuePrice, setValuePrice] = useState([1, 1000]);
+
+
+  const handleSliderChange = (e) => {
+    setValuePrice(e.target.value);
+    const minPrice = valuePrice[0];
+    const maxPrice = valuePrice[1];
+    const newList = brons.filter((item) => item.totalPrice >= minPrice && item.totalPrice<=maxPrice);
+    setSubjectBrons(newList);
+  };
+
+
+  subjectBrons.sort((a, b) => b.totalPrice - a.totalPrice);
+
   return (
     <>
       <div className="filter">
-      <TextField
-          onChange={handlePriceChange}
-          label="Enter bron Price"
-          variant="outlined"
-        />
-        <LocalizationProvider dateAdapter={DateAdapter}>
-          <DesktopDatePicker
-            label="Select Start date"
-            inputFormat="MM/DD/yyyy"
-            value={filter.startDate}
-            onChange={handleChangeStartDate}
-            renderInput={(params) => <TextField {...params} />}
+        <div className="filter-price">
+          <Typography id="range-slider" gutterBottom>
+            Select Price Range:
+          </Typography>
+          <Slider
+            value={valuePrice}
+            onChange={handleSliderChange}
+            min={1}
+            max={1000}
           />
-          <DesktopDatePicker
-            label="Select End date"
-            inputFormat="MM/DD/yyyy"
-            value={filter.endDate}
-            onChange={handleChangeEndDate}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-        <Button onClick={handleFilter} variant="contained">
-          Filter
-        </Button>
-        <Button onClick={handleClearFilter} color="error" variant="contained">
-          Clear filter
-        </Button>
+         <p> Your range of Price is between {valuePrice[0]}  and {valuePrice[1]}</p>
+        </div>
+        <div className="filter-date">
+          <LocalizationProvider dateAdapter={DateAdapter}>
+            <DesktopDatePicker
+              label="Select Start date"
+              inputFormat="MM/DD/yyyy"
+              value={filter.startDate}
+              onChange={handleChangeStartDate}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <DesktopDatePicker
+              label="Select End date"
+              inputFormat="MM/DD/yyyy"
+              value={filter.endDate}
+              onChange={handleChangeEndDate}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          <Button onClick={handleFilter} variant="contained">
+            Filter
+          </Button>
+          <Button onClick={handleClearFilter} color="error" variant="contained">
+            Clear filter
+          </Button>
+        </div>
       </div>
       <div className="ui grid container">
         {subjectBrons.length ? (
@@ -152,7 +177,9 @@ const BronComponent = () => {
             );
           })
         ) : (
-            <p className="date-warning">There are no reservations on these dates</p>
+          <p className="date-warning">
+            There are no reservations on these dates
+          </p>
         )}
       </div>
     </>

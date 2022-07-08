@@ -78,6 +78,8 @@ const EditBron = () => {
 
   const { price } = room;
 
+  console.log("price",price);
+
 
   let checkIn = Date.parse(values.startDate);
   let checkOut = Date.parse(values.endDate);
