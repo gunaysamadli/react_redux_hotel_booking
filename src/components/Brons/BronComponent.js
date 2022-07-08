@@ -37,7 +37,6 @@ const BronComponent = () => {
 
   const [subjectBrons, setSubjectBrons] = useState([]);
   const [filter, setFilter] = useState({
-    price: null,
     startDate: null,
     endDate: null,
   });
@@ -50,24 +49,38 @@ const BronComponent = () => {
     setFilter((prev) => ({ ...prev, endDate: value }));
   };
 
-  const handlePriceChange = (e) => {
-    setFilter((prev) => ({ ...prev, price: e.target.value }));
-  };
 
   const handleClearFilter = () => {
     setFilter({
-      price: null,
       startDate: null,
       endDate: null,
+      valuePrice:null
     });
     setSubjectBrons(brons);
   };
 
+  
+
+  const [valuePrice, setValuePrice] = useState([1, 1000]);
+
+  const handleSliderChange = (e) => {
+    setValuePrice(e.target.value);
+    // const minPrice = valuePrice[0];
+    // const maxPrice = valuePrice[1];
+    // const newList = brons.filter(
+    //   (item) => item.totalPrice >= minPrice && item.totalPrice <= maxPrice
+    // );
+    // setSubjectBrons(newList);
+  };
+
+  subjectBrons.sort((a, b) => b.totalPrice - a.totalPrice);
+
   const handleFilter = () => {
     if (brons.length) {
       let filtered = brons.filter((item) =>
-        (filter.price != null ? item.price == filter.price : true) &&
-        filter.startDate == null
+        (item.totalPrice >= valuePrice[0] && item.totalPrice <= valuePrice[1]) &&
+        (
+          filter.startDate == null
           ? true
           : moment(item.startDate)
               .startOf("D")
@@ -77,24 +90,11 @@ const BronComponent = () => {
           : moment(item.endDate)
               .endOf("D")
               .isSame(moment(filter.endDate).endOf("D"))
+        )
       );
       setSubjectBrons(filtered);
     }
   };
-
-  const [valuePrice, setValuePrice] = useState([1, 1000]);
-
-
-  const handleSliderChange = (e) => {
-    setValuePrice(e.target.value);
-    const minPrice = valuePrice[0];
-    const maxPrice = valuePrice[1];
-    const newList = brons.filter((item) => item.totalPrice >= minPrice && item.totalPrice<=maxPrice);
-    setSubjectBrons(newList);
-  };
-
-
-  subjectBrons.sort((a, b) => b.totalPrice - a.totalPrice);
 
   return (
     <>
@@ -109,7 +109,10 @@ const BronComponent = () => {
             min={1}
             max={1000}
           />
-         <p> Your range of Price is between {valuePrice[0]}  and {valuePrice[1]}</p>
+          <p>
+            {" "}
+            Your range of Price is between {valuePrice[0]} and {valuePrice[1]}
+          </p>
         </div>
         <div className="filter-date">
           <LocalizationProvider dateAdapter={DateAdapter}>

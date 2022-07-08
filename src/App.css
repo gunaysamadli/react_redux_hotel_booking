@@ -215,6 +215,14 @@ background-color: #727272;;
   color: rgb(160, 7, 7);
 }
 
+.form-inputs span{
+  color: #222 !important;
+}
+
+#dark .form-inputs span{
+  color: #fff !important;
+}
+
 .bron-form button{
   border: 1px solid gray;
   outline: none;

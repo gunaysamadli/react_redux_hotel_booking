@@ -13,14 +13,19 @@ const Validation = (values, brons) => {
     errors.select = "The end date must be later than the start date";
   }
   if (brons) {
-    let isBrons = brons.filter(
-      (bron) =>
-        (bron.endDate >= values.startDate &&
-          bron.startDate <= values.startDate) ||
-        (bron.endDate >= values.endDate && bron.startDate <= values.endDate)
-    );
-    if (isBrons && isBrons.length) {
-      errors.errorDate = "The Room is already booked for these days";
+    if (brons.filter((bron) => String(bron.roomId) === String(values.RoomId))) {
+      let isBrons = brons.filter(
+        (bron) =>
+          (bron.endDate >= values.startDate &&
+            bron.startDate <= values.startDate) ||
+          (bron.endDate >= values.endDate && bron.startDate <= values.endDate)
+        );
+        
+        console.log("isBrons",isBrons);
+
+      if (isBrons && isBrons.length) {
+        errors.errorDate = "The Room is already booked for these days";
+      }
     }
   }
   return errors;
