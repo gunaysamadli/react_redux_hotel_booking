@@ -51,6 +51,9 @@ background-color: #727272;;
   border-bottom: 1px solid #fff;
 }
 
+.header-links{
+  display: flex;
+}
 #dark .header-links a{
   color: #fff !important;
 }
@@ -349,3 +352,29 @@ ol li p{
 .filter-price{
   margin-bottom: 40px;
 }
+
+.login{
+  margin-top: 100px !important;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-form input, .login-form button {
+  padding: 10px 20px;
+  border: 1px solid gray;
+  outline: none;
+  box-shadow: none;
+}
+
+.login-register{
+  display: flex ;
+}
+
+
+

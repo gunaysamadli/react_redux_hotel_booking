@@ -34,6 +34,7 @@ const Bron = () => {
   });
 
   const brons = useSelector((state) => state.allBrons.brons);
+  console.log(brons);
 
 
   const [errors, setErrors] = useState({});

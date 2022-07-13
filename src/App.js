@@ -12,11 +12,16 @@ import FloorDetails from "./components/Floors/FloorDetail";
 import { BrowserRouter } from "react-router-dom";
 import EditBron from "./components/Brons/EditBron";
 import ReactSwitch from "react-switch";
+import Login from "./components/Users/Login";
+import Register from "./components/Users/Register";
 
 export const ThemeContext = createContext(null);
 
+
+
 function App() {
   const [theme, setTheme] = useState("light");
+
 
   const toogleTheme = () => {
     setTheme((curr) => (curr === "dark" ? "light" : "dark"));
@@ -39,6 +44,8 @@ function App() {
               <Route path="/bron/:roomId" component={Bron} />
               <Route path="/editBron/:id" component={EditBron} />
               <Route path="/brons" component={BronComponent} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
               <Route>404 Not Found!</Route>
             </Switch>
           </Router>
