@@ -3,6 +3,7 @@ import { ActionTypes } from "../contants/actionTypes";
 const initialState = {
   users: [],
   user: [],
+  
 };
 
 export const userReducer = (state = initialState, { type, payload }) => {
@@ -17,3 +18,4 @@ export const userReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+

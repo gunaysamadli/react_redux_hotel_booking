@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RoomListing from "./components/Rooms/RoomListing";
 import Header from "./components/Header";
@@ -14,6 +14,8 @@ import EditBron from "./components/Brons/EditBron";
 import ReactSwitch from "react-switch";
 import Login from "./components/Users/Login";
 import Register from "./components/Users/Register";
+import { useDispatch } from "react-redux";
+
 
 export const ThemeContext = createContext(null);
 

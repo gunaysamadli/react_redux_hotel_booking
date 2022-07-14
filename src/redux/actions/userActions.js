@@ -21,22 +21,20 @@ export const setUser = (user) => {
   };
 };
 
-
 export const getUsers = () => {
-  return async  function (dispatch) {
+  return async function (dispatch) {
     await axios
       .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User`)
       .then((res) => {
         dispatch(setUsers(res.data));
-        
       })
       .catch((error) => console.log(error));
   };
 };
 
 export const getSingleUser = (id) => {
-  return function (dispatch) {
-    axios
+  return async function (dispatch) {
+    await axios
       .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`)
       .then((res) => {
         dispatch(setUser(res.data));
@@ -44,8 +42,6 @@ export const getSingleUser = (id) => {
       .catch((error) => console.log(error));
   };
 };
-
-
 
 export const userAdded = (user) => {
   return function (dispatch) {
@@ -58,30 +54,31 @@ export const userAdded = (user) => {
   };
 };
 
-
-
-export const userLogin = (email,password) => {
+export const userLogin = (email, password) => {
   return function (dispatch) {
     axios
-      .post(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User`, email,password)
+      .post(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User`, email, password)
       .then((res) => {
-        dispatch(getSingleUser(res.data));     
+        dispatch(getSingleUser(res.data));
       })
       .catch((error) => console.log(error));
   };
 };
 
-
-
-// export const userLogout = (email,password) => {
-//   return function (dispatch) {
-//     axios
-//       .post(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User`, email,password)
-//       .then((res) => {
-//         dispatch(setUser(res.data));
-//       })
-//       .catch((error) => console.log(error));
-//   };
+// export const login = (email, password) => {
+//   return axios
+//     .post("https://62b8199bf4cb8d63df5896fd.mockapi.io/User", {
+//       email,
+//       password,
+//     })
+//     .then((response) => {
+//       if (response.data.accessToken) {
+//         localStorage.setItem("token", JSON.stringify(response.data));
+//       }
+//       return response.data;
+//     });
 // };
 
-
+export const logout = () => {
+  localStorage.removeItem("token");
+};

@@ -1,12 +1,9 @@
-import { useSelect } from "@mui/base";
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUsers, setUsers, userAdded } from "../../redux/actions/userActions";
+import { getUsers, userAdded } from "../../redux/actions/userActions";
 import UserValidation from "../../Validations/UserValidation";
-import Login from "./Login";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -14,9 +11,8 @@ const Register = () => {
     email: "",
     password: "",
     role: "",
+    token: "",
   });
-
-
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -36,10 +32,6 @@ const Register = () => {
       setErrors(newErrors);
     } else {
       dispatch(userAdded(values));
-
-      localStorage.setItem("email", JSON.stringify(values.email));
-      localStorage.setItem("password", JSON.stringify(values.password));
-
       history.push("/");
     }
   };
@@ -53,38 +45,38 @@ const Register = () => {
   return (
     <>
       <div className="login">
-          <form className="login-form" onSubmit={handleSubmit}>
-            <h1>Register Here</h1>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your Name"
-              value={values.name}
-              onChange={handleChange}
-            />
-            {errors.name && <p className="error">{errors.name}</p>}
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your Email"
-              value={values.email}
-              onChange={handleChange}
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-            {errors.samePassword && (
-              <p className="error">{errors.samePassword}</p>
-            )}
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your Password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            {errors.password && <p className="error">{errors.password}</p>}
-            <button>Register </button>
-          </form>
-        </div>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h1>Register Here</h1>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your Name"
+            value={values.name}
+            onChange={handleChange}
+          />
+          {errors.name && <p className="error">{errors.name}</p>}
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your Email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          {errors.email && <p className="error">{errors.email}</p>}
+          {errors.samePassword && (
+            <p className="error">{errors.samePassword}</p>
+          )}
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your Password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          {errors.password && <p className="error">{errors.password}</p>}
+          <button>Register </button>
+        </form>
+      </div>
     </>
   );
 };

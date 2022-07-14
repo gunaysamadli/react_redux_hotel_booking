@@ -1,15 +1,21 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import {  useSelector ,useDispatch} from "react-redux";
+import { getUsers, userLogin} from "../../redux/actions/userActions";
+import { v4 as uuid } from 'uuid';
 
 const Login = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
+    token:uuid()
   });
 
   const [flag, setFlag] = useState(false);
+
+  const dispatch=useDispatch()
 
   const history = useHistory();
 
@@ -18,24 +24,40 @@ const Login = () => {
     setValues({ ...values, [name]: value });
   };
 
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
+  const users=useSelector((state)=> state.allUsers.users);
+
+  let isUser=users.filter((user)=>user.email===values.email && user.password===values.password);
+
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let pass = localStorage
-      .getItem("password")
-      .replace(/"/g, "");
-    let mail = localStorage.getItem("email").replace(/"/g, "");
     
 
-    if (!values.email || !values.password) {
-      setFlag(true);
-    } else if (values.password !== pass || values.email !== mail) {
-      setFlag(true);
-    } else {
+    // let tok=localStorage.getItem("token").replace(/"/g, "");
+
+
+    // if (!values.token) {
+    //   setFlag(true);
+    // } else if (values.password !== tok) {
+    //   setFlag(true);
+    // } else {
+    //   setFlag(false);
+    //   history.push("/");
+    // }
+   
+    if (isUser && isUser.length) {
       setFlag(false);
       history.push("/");
-    }
+      localStorage.setItem("token", JSON.stringify(values.token));
+      
+    } else {
+      setFlag(true);
+    }  
    
   };
 

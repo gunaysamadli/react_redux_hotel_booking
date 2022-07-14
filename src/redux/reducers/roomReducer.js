@@ -11,13 +11,6 @@ export const roomReducer = (state = initialState, { type, payload }) => {
       return { ...state, rooms: payload };
     case ActionTypes.SELECTED_ROOMS:
       return { ...state, current: payload };
-
-    // case ActionTypes.FILTER_ROOMS_BY_PRICE:
-    //     return {
-    //         ...state,
-    //         sort: payload.sort,
-    //         filteredItems: payload.rooms,
-    //     };
     default:
       return state;
   }
