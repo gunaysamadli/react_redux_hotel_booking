@@ -13,6 +13,7 @@ export const ActionTypes = {
   SET_USER: "SET_USER",
   SET_USERS: "SET_USERS",
   ADD_USER: "ADD_USER",
+  EDIT_USER: "EDIT_USER",
   SIGN_IN:"SIGN_IN",
   SIGN_UP:"SIGN_UP",
   USER_LOADED:"USER_LOADED",

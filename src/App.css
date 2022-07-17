@@ -53,6 +53,7 @@ background-color: #727272;;
 
 .header-links{
   display: flex;
+  margin-right: 200px;
 }
 #dark .header-links a{
   color: #fff !important;

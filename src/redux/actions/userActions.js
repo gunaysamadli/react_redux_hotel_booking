@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ActionTypes } from "../contants/actionTypes";
 
+
 export const setUsers = (users) => {
   return {
     type: ActionTypes.SET_USERS,
@@ -21,6 +22,12 @@ export const setUser = (user) => {
   };
 };
 
+export const editUser = () => {
+  return {
+    type: ActionTypes.EDIT_USER,
+  };
+};
+
 export const getUsers = () => {
   return async function (dispatch) {
     await axios
@@ -33,8 +40,8 @@ export const getUsers = () => {
 };
 
 export const getSingleUser = (id) => {
-  return async function (dispatch) {
-    await axios
+  return  function (dispatch) {
+     axios
       .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`)
       .then((res) => {
         dispatch(setUser(res.data));
@@ -54,31 +61,15 @@ export const userAdded = (user) => {
   };
 };
 
-export const userLogin = (email, password) => {
+export const userEdit = (user, id) => {
   return function (dispatch) {
     axios
-      .post(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User`, email, password)
+      .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`, user)
       .then((res) => {
-        dispatch(getSingleUser(res.data));
+        dispatch(editUser());
       })
       .catch((error) => console.log(error));
   };
 };
 
-// export const login = (email, password) => {
-//   return axios
-//     .post("https://62b8199bf4cb8d63df5896fd.mockapi.io/User", {
-//       email,
-//       password,
-//     })
-//     .then((response) => {
-//       if (response.data.accessToken) {
-//         localStorage.setItem("token", JSON.stringify(response.data));
-//       }
-//       return response.data;
-//     });
-// };
 
-export const logout = () => {
-  localStorage.removeItem("token");
-};

@@ -2,20 +2,22 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {  useSelector ,useDispatch} from "react-redux";
-import { getUsers, userLogin} from "../../redux/actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers, userEdit } from "../../redux/actions/userActions";
 import { v4 as uuid } from 'uuid';
 
 const Login = () => {
+
+
   const [values, setValues] = useState({
     email: "",
     password: "",
-    token:uuid()
+    token: uuid()
   });
 
   const [flag, setFlag] = useState(false);
 
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   const history = useHistory();
 
@@ -28,77 +30,67 @@ const Login = () => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const users=useSelector((state)=> state.allUsers.users);
+  const users = useSelector((state) => state.allUsers.users);
 
-  let isUser=users.filter((user)=>user.email===values.email && user.password===values.password);
+  let isUser = users.filter((user) => user.email === values.email && user.password === values.password);
 
- 
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
 
-    // let tok=localStorage.getItem("token").replace(/"/g, "");
-
-
-    // if (!values.token) {
-    //   setFlag(true);
-    // } else if (values.password !== tok) {
-    //   setFlag(true);
-    // } else {
-    //   setFlag(false);
-    //   history.push("/");
-    // }
-   
     if (isUser && isUser.length) {
+      dispatch(userEdit(values, isUser.map((user) => (user.id))))
+      localStorage.setItem("token", JSON.stringify(values.token));
       setFlag(false);
       history.push("/");
-      localStorage.setItem("token", JSON.stringify(values.token));
-      
+
     } else {
       setFlag(true);
-    }  
-   
+    }
+
   };
+
+
 
   return (
     <div className="login">
-       <form onSubmit={handleSubmit} className="login-form">
-          <h3>LogIn</h3>
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              placeholder="Enter your Email"
-              value={values.email}
-              onChange={handleChange}
-            />
+      <form onSubmit={handleSubmit} className="login-form">
+        <h3>LogIn</h3>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            placeholder="Enter your Email"
+            value={values.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            placeholder="Enter your Password"
+            value={values.password}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit" className="btn btn-dark btn-lg btn-block">
+          Login
+        </button>
+
+        {flag && (
+          <div color="primary" variant="warning">
+            Fill correct Info else keep trying.
           </div>
-
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              placeholder="Enter your Password"
-              value={values.password}
-              onChange={handleChange}
-            />
-          </div>
-
-          <button type="submit" className="btn btn-dark btn-lg btn-block">
-            Login
-          </button>
-
-          {flag && (
-            <div color="primary" variant="warning">
-              Fill correct Info else keep trying.
-            </div>
-          )}
-        </form>
+        )}
+      </form>
     </div>
   );
 };
