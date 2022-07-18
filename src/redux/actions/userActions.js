@@ -62,7 +62,7 @@ export const userAdded = (user) => {
 };
 
 export const userEdit = (user, id) => {
-  return function (dispatch) {
+  return  function (dispatch) {
     axios
       .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`, user)
       .then((res) => {
@@ -73,3 +73,16 @@ export const userEdit = (user, id) => {
 };
 
 
+
+
+// export const userDelete = (user, id) => {
+//   return function (dispatch) {
+//     axios
+//       .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`, user)
+//       .then((res) => {
+//         dispatch(editUser());
+//         localStorage.removeItem("token");
+//       })
+//       .catch((error) => console.log(error));
+//   };
+// };

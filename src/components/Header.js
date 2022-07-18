@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, userEdit } from "../redux/actions/userActions";
+import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
+import axios from "axios";
 
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+ 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -15,20 +17,22 @@ const Header = () => {
   const users = useSelector((state) => state.allUsers.users);
 
 
-  let isUsers = users.filter((user) => user.token.length >0);
+  let isUsers = users.filter((user) => user.token !== "");
 
 
   let name = (isUsers.map((user) => user.name));
 
-
+  const [values, setValues] = useState({
+    token:""
+  });
+  
 
   const handleSignOut = () => {
-    // dispatch(userEdit(isUsers, isUsers.map((user) => (user.id))))
+    dispatch(userEdit(values, isUsers.map((user) => (user.id))))
     localStorage.removeItem("token");
     history.push("/");
   };
 
-  
 
 
   return (
@@ -48,9 +52,7 @@ const Header = () => {
           {isUsers && isUsers.length>0
             ? (
               <>
-                <p>
-                  {name}
-                </p>
+                
                 <div
                   edge="end"
                   color="inherit"
@@ -58,7 +60,9 @@ const Header = () => {
                 >
                   <Link to="/">SignOut</Link>
                 </div>
-
+                <p>
+                  {name}
+                </p>
               </>
 
             ) : (
