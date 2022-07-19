@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
+import { getUsers } from "../../redux/actions/userActions";
 
 const BronComponent = () => {
   const history = useHistory();
@@ -96,6 +97,17 @@ const BronComponent = () => {
     }
   };
 
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const users = useSelector((state) => state.allUsers.users);
+
+
+  let isAdmin = users.filter((user) => user.token !== "" && user.role === "Admin");
+
+
   return (
     <>
       <div className="filter">
@@ -159,13 +171,16 @@ const BronComponent = () => {
                         <p> Start Date : {bron.startDate}</p>
                         <p> End Date : {bron.endDate}</p>
                       </p>
-                      <div className="bron-links">
-                        <Link
+                      {
+                        isAdmin && isAdmin.length>0 ? 
+                        (
+                          <div className="bron-links">
+                        <div
                           className="bron-link"
                           onClick={() => history.push(`/editBron/${bron.id}`)}
                         >
                           Edit
-                        </Link>
+                        </div>
                         <div
                           onClick={() => handleDeleted(bron.id)}
                           className="bron-link"
@@ -173,6 +188,11 @@ const BronComponent = () => {
                           UnBooking
                         </div>
                       </div>
+                      
+                        )
+                        : 
+                        ""
+                      }
                     </div>
                   </div>
                 </div>

@@ -17,7 +17,7 @@ const RoomPage = () => {
   return (
     <div className="ui grid container">
       {rooms && rooms.length
-        ? rooms.map((room) => <RoomComponent room={room} />)
+        ? rooms.map((room) => <RoomComponent room={room} key={room.id} />)
         : null}
     </div>
   );

@@ -34,7 +34,8 @@ const Bron = () => {
   });
 
   const brons = useSelector((state) => state.allBrons.brons);
-  console.log(brons);
+
+  let isBron=brons.filter((bron)=>String(bron.RoomId) === String(values.RoomId));
 
 
   const [errors, setErrors] = useState({});
@@ -51,7 +52,7 @@ const Bron = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    let newErrors = Validation(values, brons);
+    let newErrors = Validation(values, isBron);
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
     } else {
@@ -65,6 +66,8 @@ const Bron = () => {
 
   let days = Math.floor((checkOut - checkIn) / (1000 * 60 * 60 * 24));
   let totalPrice = (values.totalPrice = Number(price) * Number(days));
+
+ 
 
   return (
     <div className="ui grid container">

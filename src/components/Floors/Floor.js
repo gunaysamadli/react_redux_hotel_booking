@@ -15,7 +15,7 @@ const Floor = () => {
   return (
     <div className="ui grid container">
       {floors && floors.length
-        ? floors.map((floor) => <FloorComponent floor={floor} />)
+        ? floors.map((floor) => <FloorComponent floor={floor} key={floor.id} />)
         : null}
     </div>
   );

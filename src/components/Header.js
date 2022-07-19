@@ -9,31 +9,44 @@ const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
- 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
   const users = useSelector((state) => state.allUsers.users);
 
+  const user = useSelector((state) => state.allUsers.user);
 
-  let isUsers = users.filter((user) => user.token !== "");
-
-
-  let name = (isUsers.map((user) => user.name));
+  const [keepUser, setKeepUser] = useState();
 
   const [values, setValues] = useState({
-    token:""
+    token: "",
   });
-  
 
   const handleSignOut = () => {
-    dispatch(userEdit(values, isUsers.map((user) => (user.id))))
+    // dispatch(userEdit(values, keepUser.id));
+    // console.log(keepUser);
+    // // console.log(keepUser.name);
+    // setKeepUser("");
     localStorage.removeItem("token");
     history.push("/");
   };
 
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    if (token && users && users.length) {
+      let findUserForToken = users.filter((user) => {
+        if (user.token === token) return user;
+      });
+      setKeepUser(findUserForToken[0]);  
+    }
+  }, [users]);
 
+  useEffect(() => {
+    if (keepUser) {
+      dispatch(setUser(keepUser));
+    }
+  }, [keepUser]);
 
   return (
     <div className="ui fixed menu">
@@ -43,34 +56,30 @@ const Header = () => {
       >
         <h1 className="logo">Otel Rezervation</h1>
         <div className="header-links">
-          <Link to={`/`}>All Flours</Link>
-          <Link to={`/room`}>All Rooms</Link>
-          <Link to={`/brons`}>All Brons</Link>
           {/* <div className="user-icon">
             <PersonIcon />
           </div> */}
-          {isUsers && isUsers.length>0
-            ? (
-              <>
-                
-                <div
-                  edge="end"
-                  color="inherit"
-                  onClick={() => handleSignOut()}
-                >
-                  <Link to="/">SignOut</Link>
-                </div>
-                <p>
-                  {name}
-                </p>
-              </>
-
-            ) : (
-              <div className="login-register">
-                <Link to={`/login`} onClick={() => history.push(`/editBron/${users.id}`)}>Login</Link>
-                <Link to={`/register`}>Register</Link>
+          {user ? (
+            <>
+              <Link to={`/floor`}>All Flours</Link>
+              <Link to={`/room`}>All Rooms</Link>
+              <Link to={`/brons`}>All Brons</Link>
+              <div edge="end" color="inherit" onClick={() => handleSignOut()}>
+                <Link to="/">SignOut</Link>
               </div>
-            )}
+              <p>{user.name ? user.name : keepUser ? keepUser.name : ""}</p>
+            </>
+          ) : (
+            <div className="login-register">
+              <Link
+                to={`/`}
+                onClick={() => history.push(`/editBron/${users.id}`)}
+              >
+                Login
+              </Link>
+              <Link to={`/register`}>Register</Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

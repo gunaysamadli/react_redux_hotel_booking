@@ -42,7 +42,7 @@ const RoomComponent = ({ room }) => {
                 <Link to={`/room-detail/${id}`} className="image bron">
                   <ol>
                     {bronData.slice(0, 3).map((bron) => (
-                      <li>
+                      <li key={bron.id}>
                         <p className="bron-date">
                           Start Date : {bron.startDate}
                         </p>
@@ -66,7 +66,7 @@ const RoomComponent = ({ room }) => {
                 <Link to={`/room-detail/${id}`} className="image">
                   <ol>
                     {bronData.slice(0, 3).map((bron) => (
-                      <li>
+                      <li key={bron.id}>
                         <p className="bron-date">
                           Start Date : {bron.startDate}
                         </p>

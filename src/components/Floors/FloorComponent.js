@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const FloorComponent = ({ floor }) => {
   const { id, maxRoomCount, title } = floor;
 
+
   return (
     <div className="four wide column" key={id}>
       <Link to={`/room/${id}`}>

@@ -377,5 +377,9 @@ ol li p{
   display: flex ;
 }
 
-
+.error-page{
+  margin-top: 50px;
+  color: #aa1616;
+  font-size: 46px;
+}
 
