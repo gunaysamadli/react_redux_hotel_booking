@@ -28,6 +28,12 @@ export const editUser = () => {
   };
 };
 
+export const deleteSelectedUser = () => {
+  return {
+    type: ActionTypes.DELETE_USER,
+  };
+};
+
 export const getUsers = () => {
   return async function (dispatch) {
     await axios
@@ -72,17 +78,17 @@ export const userEdit = (user, id) => {
   };
 };
 
+export const deleteUser = (id) => {
+  return async (dispatch) => {
+    axios
+      .delete(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`)
+      .then((res) => {
+        dispatch(deleteSelectedUser());
+        dispatch(getUsers());
+      })
+      .catch((error) => console.log(error));
+  };
+};
 
 
 
-// export const userDelete = (user, id) => {
-//   return function (dispatch) {
-//     axios
-//       .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`, user)
-//       .then((res) => {
-//         dispatch(editUser());
-//         localStorage.removeItem("token");
-//       })
-//       .catch((error) => console.log(error));
-//   };
-// };

@@ -383,3 +383,9 @@ ol li p{
   font-size: 46px;
 }
 
+.user-roles{
+  padding: 200px 100px 0 100px;
+}
+.edit-user-icon svg,.delete-user-icon svg{
+  cursor: pointer;
+}

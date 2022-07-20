@@ -16,6 +16,7 @@ import Login from "./components/Users/Login";
 import Register from "./components/Users/Register";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "./redux/actions/userActions";
+import Role from "./components/Roles/Role";
 
 export const ThemeContext = createContext(null);
 
@@ -26,9 +27,6 @@ function App() {
     setTheme((curr) => (curr === "dark" ? "light" : "dark"));
   };
 
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  console.log(token);
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -40,6 +38,9 @@ function App() {
   // let findUserForToken = users.filter((user) => user.token !== "");
 
   // let isAdmin = users.filter((user) => user.token !== "" && user.role === "Admin");
+
+  const user = useSelector((state) => state.allUsers.user);
+
 
   return (
     <ThemeContext.Provider value={{ theme, toogleTheme }}>
@@ -64,6 +65,7 @@ function App() {
               <Route path="/room-detail/:id" component={RoomDetail} />
               <Route path="/bron/:roomId" component={Bron} />
               <Route path="/editBron/:id" component={EditBron} />
+              <Route path="/user" component={Role} />
               <Route path="/brons" component={BronComponent} />
               <Route path="/" exact component={Login} />
               <Route path="/register" component={Register} />

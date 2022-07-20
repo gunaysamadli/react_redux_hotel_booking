@@ -35,8 +35,6 @@ const Login = () => {
       .catch((err) => {
         console.log("Err: ", err);
       });
-
-
     dispatch(setUser(response.data));
   };
 

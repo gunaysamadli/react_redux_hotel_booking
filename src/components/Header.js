@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
-import axios from "axios";
 
 const Header = () => {
   const history = useHistory();
@@ -19,19 +18,7 @@ const Header = () => {
 
   const [keepUser, setKeepUser] = useState();
 
-  const [values, setValues] = useState({
-    token: "",
-  });
-
-  const handleSignOut = () => {
-    // dispatch(userEdit(values, keepUser.id));
-    // console.log(keepUser);
-    // // console.log(keepUser.name);
-    // setKeepUser("");
-    localStorage.removeItem("token");
-    history.push("/");
-  };
-
+  
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token && users && users.length) {
@@ -48,6 +35,29 @@ const Header = () => {
     }
   }, [keepUser]);
 
+  
+
+  // useEffect(() => {
+  //   const token = JSON.parse(localStorage.getItem("token"));
+  //   if(token===null){
+  //     setKeepUser("");
+  //   }
+  // }, [users]);
+
+  const [values, setValues] = useState({
+    token: "",
+  });
+
+  const handleSignOut = () => {
+    dispatch(userEdit(values, user.id));
+    dispatch(setUser(null));
+    localStorage.removeItem("token");
+    history.push("/");
+  };
+
+
+
+
   return (
     <div className="ui fixed menu">
       <div
@@ -59,11 +69,12 @@ const Header = () => {
           {/* <div className="user-icon">
             <PersonIcon />
           </div> */}
-          {user ? (
+          {user  ? (
             <>
               <Link to={`/floor`}>All Flours</Link>
               <Link to={`/room`}>All Rooms</Link>
               <Link to={`/brons`}>All Brons</Link>
+              <Link to={`/user`}>All Users</Link>
               <div edge="end" color="inherit" onClick={() => handleSignOut()}>
                 <Link to="/">SignOut</Link>
               </div>

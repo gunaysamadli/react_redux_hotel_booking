@@ -39,25 +39,3 @@ export const getRooms = () => {
 };
 
 
-// export const sortProducts = (sort, filteredProduct) => (dispatch) => {
-//   const sortedProduct = filteredProduct.slice();
-//   if (sort === "latest") {
-
-//     sortedProduct.sort((a, b) => (a._id > b._id ? 1 : -1));
-//   } else {
-
-//     sortedProduct.sort((a, b) =>
-//       sort === "lowest"
-//         ? a.price > b.price
-//           ? 1
-//           : -1
-//         : a.price > b.price
-//         ? -1
-//         : 1
-//     );
-//   }
-//   dispatch({
-//     type: ActionTypes.FILTER_PRODUCTS_BY_PRICE,
-//     payload: { sort: sort, products: sortedProduct },
-//   });
-// };
