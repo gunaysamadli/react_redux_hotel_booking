@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getUsers } from "../../redux/actions/userActions";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useHistory } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,13 +34,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomizedTables() {
+
   const users = useSelector((state) => state.allUsers.users);
 
   let isUser=users.filter((user)=>user.role!=="Super Admin")
 
-  console.log("role", users);
-
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getUsers());
@@ -75,7 +77,7 @@ export default function CustomizedTables() {
                 <StyledTableCell align="right">{user.email}</StyledTableCell>
                 <StyledTableCell align="right">{user.role}</StyledTableCell>
                 <StyledTableCell align="right" className="edit-user-icon">
-                  <EditIcon />
+                  <EditIcon onClick={() => history.push(`/editUser/${user.id}`)}/>
                 </StyledTableCell>
                 <StyledTableCell align="right" className="delete-user-icon">
                   <DeleteIcon onClick={() => handleDeleted(user.id)} />

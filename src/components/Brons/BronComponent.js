@@ -107,7 +107,6 @@ const BronComponent = () => {
 
   let isAdmin = users.filter((user) => user.token !== "" && user.role === "Admin");
 
-
   return (
     <>
       <div className="filter">
@@ -171,10 +170,7 @@ const BronComponent = () => {
                         <p> Start Date : {bron.startDate}</p>
                         <p> End Date : {bron.endDate}</p>
                       </p>
-                      {
-                        isAdmin && isAdmin.length>0 ? 
-                        (
-                          <div className="bron-links">
+                      <div className="bron-links">
                         <div
                           className="bron-link"
                           onClick={() => history.push(`/editBron/${bron.id}`)}
@@ -188,11 +184,6 @@ const BronComponent = () => {
                           UnBooking
                         </div>
                       </div>
-                      
-                        )
-                        : 
-                        ""
-                      }
                     </div>
                   </div>
                 </div>

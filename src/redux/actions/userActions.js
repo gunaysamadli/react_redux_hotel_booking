@@ -22,9 +22,23 @@ export const setUser = (user) => {
   };
 };
 
+export const setRole = (current) => {
+  return {
+    type: ActionTypes.SET_ROLE,
+    payload: current,
+  };
+};
+
 export const editUser = () => {
   return {
     type: ActionTypes.EDIT_USER,
+  };
+};
+
+
+export const editRole = () => {
+  return {
+    type: ActionTypes.EDIT_ROLE,
   };
 };
 
@@ -56,6 +70,17 @@ export const getSingleUser = (id) => {
   };
 };
 
+export const getSingleRole = (id) => {
+  return  function (dispatch) {
+     axios
+      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`)
+      .then((res) => {
+        dispatch(setRole(res.data));
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
 export const userAdded = (user) => {
   return function (dispatch) {
     axios
@@ -73,6 +98,17 @@ export const userEdit = (user, id) => {
       .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`, user)
       .then((res) => {
         dispatch(editUser());
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const  roleEdit= (current, id) => {
+  return  function (dispatch) {
+    axios
+      .put(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`, current)
+      .then((res) => {
+        dispatch(editRole());
       })
       .catch((error) => console.log(error));
   };

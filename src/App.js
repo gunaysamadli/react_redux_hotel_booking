@@ -15,8 +15,9 @@ import ReactSwitch from "react-switch";
 import Login from "./components/Users/Login";
 import Register from "./components/Users/Register";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "./redux/actions/userActions";
+import { editUser, getUsers } from "./redux/actions/userActions";
 import Role from "./components/Roles/Role";
+import EditRole from "./components/Roles/EditRole";
 
 export const ThemeContext = createContext(null);
 
@@ -65,6 +66,7 @@ function App() {
               <Route path="/room-detail/:id" component={RoomDetail} />
               <Route path="/bron/:roomId" component={Bron} />
               <Route path="/editBron/:id" component={EditBron} />
+              <Route path="/editUser/:id" component={EditRole} />
               <Route path="/user" component={Role} />
               <Route path="/brons" component={BronComponent} />
               <Route path="/" exact component={Login} />

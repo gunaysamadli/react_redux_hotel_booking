@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
 
@@ -18,14 +19,14 @@ const Header = () => {
 
   const [keepUser, setKeepUser] = useState();
 
-  
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token && users && users.length) {
       let findUserForToken = users.filter((user) => {
         if (user.token === token) return user;
       });
-      setKeepUser(findUserForToken[0]);  
+      setKeepUser(findUserForToken[0]);
     }
   }, [users]);
 
@@ -35,14 +36,6 @@ const Header = () => {
     }
   }, [keepUser]);
 
-  
-
-  // useEffect(() => {
-  //   const token = JSON.parse(localStorage.getItem("token"));
-  //   if(token===null){
-  //     setKeepUser("");
-  //   }
-  // }, [users]);
 
   const [values, setValues] = useState({
     token: "",
@@ -55,8 +48,11 @@ const Header = () => {
     history.push("/");
   };
 
+  const [isActive, setActive] = useState("false");
 
-
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
 
   return (
     <div className="ui fixed menu">
@@ -66,19 +62,25 @@ const Header = () => {
       >
         <h1 className="logo">Otel Rezervation</h1>
         <div className="header-links">
-          {/* <div className="user-icon">
-            <PersonIcon />
-          </div> */}
-          {user  ? (
+          {user ? (
             <>
               <Link to={`/floor`}>All Flours</Link>
               <Link to={`/room`}>All Rooms</Link>
               <Link to={`/brons`}>All Brons</Link>
-              <Link to={`/user`}>All Users</Link>
-              <div edge="end" color="inherit" onClick={() => handleSignOut()}>
-                <Link to="/">SignOut</Link>
+
+              <div className="user-icon" onClick={handleToggle}>
+                <PersonIcon />
+                <p className="user-name">{user.name ? user.name : keepUser ? keepUser.name : ""}</p>
+                <KeyboardArrowDownIcon />
               </div>
-              <p>{user.name ? user.name : keepUser ? keepUser.name : ""}</p>
+              <div className={isActive ? "user-detail " : "user-detail active"}>
+                {
+                  user.role==="Super Admin" ?  <div> <Link to={`/user`}>All Users</Link></div> : ""
+                } 
+                <div edge="end" color="inherit" onClick={() => handleSignOut()}>
+                  <Link to="/">SignOut</Link>
+                </div>
+              </div>
             </>
           ) : (
             <div className="login-register">

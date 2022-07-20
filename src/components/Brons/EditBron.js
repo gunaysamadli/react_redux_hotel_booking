@@ -9,7 +9,6 @@ import { getSingleRoom } from "../../redux/actions/roomActions";
 
 const EditBron = () => {
 
-
   const bron = useSelector((state) => state.allBrons.bron);
 
   const [values, setValues] = useState({
