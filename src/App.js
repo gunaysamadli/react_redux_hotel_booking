@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RoomListing from "./components/Rooms/RoomListing";
 import Header from "./components/Header";
@@ -14,9 +14,10 @@ import EditBron from "./components/Brons/EditBron";
 import ReactSwitch from "react-switch";
 import Login from "./components/Users/Login";
 import Register from "./components/Users/Register";
-import { useDispatch, useSelector } from "react-redux";
-import { editUser, getUsers } from "./redux/actions/userActions";
-import Role from "./components/Roles/Role";
+import CreateRole from "./components/Roles/CreateRole";
+import  RoleList  from "./components/Roles/RoleList";
+import User from "./components/Users/User";
+import EditUser from "./components/Users/EditUser";
 import EditRole from "./components/Roles/EditRole";
 
 export const ThemeContext = createContext(null);
@@ -27,20 +28,6 @@ function App() {
   const toogleTheme = () => {
     setTheme((curr) => (curr === "dark" ? "light" : "dark"));
   };
-
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  // }, [dispatch]);
-
-  // const users = useSelector((state) => state.allUsers.users);
-
-  // let findUserForToken = users.filter((user) => user.token !== "");
-
-  // let isAdmin = users.filter((user) => user.token !== "" && user.role === "Admin");
-
-  const user = useSelector((state) => state.allUsers.user);
 
 
   return (
@@ -66,8 +53,11 @@ function App() {
               <Route path="/room-detail/:id" component={RoomDetail} />
               <Route path="/bron/:roomId" component={Bron} />
               <Route path="/editBron/:id" component={EditBron} />
-              <Route path="/editUser/:id" component={EditRole} />
-              <Route path="/user" component={Role} />
+              <Route path="/editUser/:id" component={EditUser} />
+              <Route path="/editRole/:id" component={EditRole} />
+              <Route path="/user" component={User} />
+              <Route path="/createRole" component={CreateRole} />
+              <Route path="/roleList" component={RoleList} />
               <Route path="/brons" component={BronComponent} />
               <Route path="/" exact component={Login} />
               <Route path="/register" component={Register} />

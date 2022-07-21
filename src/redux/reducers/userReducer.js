@@ -3,7 +3,7 @@ import { ActionTypes } from "../contants/actionTypes";
 const initialState = {
   users: [],
   user: null,
-  current:[]
+  current:{}
 };
 
 export const userReducer = (state = initialState, { type, payload }) => {
@@ -14,9 +14,9 @@ export const userReducer = (state = initialState, { type, payload }) => {
       return { ...state, user: payload };
     case ActionTypes.EDIT_USER:
       return { ...state,user:payload};
-    case ActionTypes.EDIT_ROLE:
+    case ActionTypes.EDIT_USER_ROLE:
       return { ...state,current:payload};
-      case ActionTypes.SET_ROLE:
+      case ActionTypes.SET_USER_ROLE:
       return { ...state, current:payload};
     default:
       return state;

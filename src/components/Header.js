@@ -34,7 +34,7 @@ const Header = () => {
     if (keepUser) {
       dispatch(setUser(keepUser));
     }
-  }, [keepUser]);
+  }, [keepUser,dispatch]);
 
 
   const [values, setValues] = useState({
@@ -77,6 +77,7 @@ const Header = () => {
                 {
                   user.role==="Super Admin" ?  <div> <Link to={`/user`}>All Users</Link></div> : ""
                 } 
+                <div> <Link to={`/roleList`}>All Roles</Link></div>
                 <div edge="end" color="inherit" onClick={() => handleSignOut()}>
                   <Link to="/">SignOut</Link>
                 </div>

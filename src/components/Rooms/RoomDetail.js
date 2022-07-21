@@ -19,7 +19,7 @@ const RoomDetail = () => {
       let data = brons.filter((bron) => bron.RoomId === id);
       setBronData(data);
     }
-  }, [brons]);
+  }, [brons,id]);
 
   let room = useSelector((state) => state.allRooms.current);
   const { price, person } = room;

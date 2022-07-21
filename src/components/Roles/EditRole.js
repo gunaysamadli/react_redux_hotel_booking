@@ -2,20 +2,18 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { getSingleRole, roleEdit, setRole, setUser } from '../../redux/actions/userActions';
-import RoleValidation from '../../Validations/RoleValidation';
+import { getOneRole, roleEdit, setRole } from '../../redux/actions/roleActions';
+import validationRole from '../../Validations/validationRole';
 
 const EditRole = () => {
 
-  const user = useSelector((state) => state.allUsers.current);
+  const role = useSelector((state) => state.allRoles.role);
 
-  const users = useSelector((state) => state.allUsers.users);
+  const roles = useSelector((state) => state.allRoles.roles);
 
 
   const [values, setValues] = useState({
     name: "",
-    email: "",
-    role: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -32,12 +30,12 @@ const EditRole = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    let newErrors = RoleValidation(values,users,user);
+    let newErrors = validationRole(values);
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
     } else {
       dispatch(roleEdit(values, id));
-      history.push("/user");
+      history.push("/roleList");
     }
   };
 
@@ -46,7 +44,7 @@ const EditRole = () => {
 
   const fetchUser = async (id) => {
     const response = await axios
-      .get(`https://62b8199bf4cb8d63df5896fd.mockapi.io/User/${id}`)
+      .get(`http://localhost:3000/role/${id}`)
       .catch((err) => {
         console.log("Err: ", err);
       });
@@ -59,19 +57,19 @@ const EditRole = () => {
   }, [id]);
 
   useEffect(() => {
-    dispatch(getSingleRole(id));
+    dispatch(getOneRole(id));
   }, [])
 
   useEffect(() => {
-    if (user) {
-      setValues({ ...user })
+    if (role) {
+      setValues({ ...role })
     }
-  }, [user]);
+  }, [role]);
 
   return (
     <div className="ui grid container">
       <div className="bron-forms">
-        <h1>Edit User</h1>
+        <h1>Edit Role</h1>
         <form className="bron-form" onSubmit={handleSubmit}>
           <div className="form-inputs">
             <input
@@ -84,33 +82,9 @@ const EditRole = () => {
             />
              {errors.name && <p className="error">{errors.name}</p>}
           </div>
-          <div className="form-inputs">
-            <input
-              value={values.email}
-              onChange={handleChange}
-              name="email"
-              id="email"
-              type="text"
-              placeholder="Enter your email"
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-            {errors.samePassword && <p className="error">{errors.samePassword}</p>}
-          </div>
-          <div className="form-inputs">
-            <input
-              value={values.role}
-              onChange={handleChange}
-              name="role"
-              id="role"
-              type="text"
-              placeholder="Enter your role"
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-            
-          </div>
-          <button type="submit">Edit User </button>
+          <button type="submit">Edit Role </button>
         </form>
-        <button className="back" onClick={() => history.push("/user")}>
+        <button className="back" onClick={() => history.push("/roleList")}>
           Go back
         </button>
       </div>

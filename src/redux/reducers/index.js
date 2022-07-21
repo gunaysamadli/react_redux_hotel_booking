@@ -3,6 +3,7 @@ import { floorReducer, selectedFloorReducer } from "./floorReducer";
 import { bronReducer } from "./bronReducer";
 import { roomReducer } from "./roomReducer";
 import { userReducer } from "./userReducer";
+import { roleReducer } from "./roleReducer";
 
 
 const reducers = combineReducers({
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   floor: selectedFloorReducer,
   allBrons: bronReducer,
   allUsers:userReducer,
+  allRoles:roleReducer,
 });
 
 export default reducers;
