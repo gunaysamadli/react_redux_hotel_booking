@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import { deleteBron, getBrons } from "../../redux/actions/bronActions";
@@ -11,7 +10,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
-import { getUsers } from "../../redux/actions/userActions";
 
 const BronComponent = () => {
   const history = useHistory();
@@ -98,14 +96,12 @@ const BronComponent = () => {
   };
 
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
+  const user = useSelector((state) => state.allUsers.user);
+  
+  const Admin = useSelector((state) => state.allRoles.isAdmin);
 
-  const users = useSelector((state) => state.allUsers.users);
+  const Manager = useSelector((state) => state.allRoles.isManager);
 
-
-  let isAdmin = users.filter((user) => user.token !== "" && user.role === "Admin");
 
   return (
     <>
@@ -171,18 +167,29 @@ const BronComponent = () => {
                         <p> End Date : {bron.endDate}</p>
                       </p>
                       <div className="bron-links">
-                        <div
+                      {
+                        user.RoleId===Admin.id || user.RoleId===Manager.id ? (
+                          
+                          <div
                           className="bron-link"
                           onClick={() => history.push(`/editBron/${bron.id}`)}
                         >
                           Edit
                         </div>
-                        <div
+                        ) : ""
+                      }
+                        {
+                          user.RoleId===Admin.id ? 
+                          <div
                           onClick={() => handleDeleted(bron.id)}
                           className="bron-link"
                         >
                           UnBooking
                         </div>
+                          : ""
+                        }
+                        
+                      
                       </div>
                     </div>
                   </div>

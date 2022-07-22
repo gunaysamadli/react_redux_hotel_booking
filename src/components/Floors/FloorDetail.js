@@ -41,6 +41,7 @@ const FloorDetails = () => {
     fetchRooms();
     fetchBron();
   }, []);
+  
   return (
     <div className="ui grid container">
       {Object.keys(rooms).length === 0 ? (

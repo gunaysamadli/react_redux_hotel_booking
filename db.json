@@ -2,11 +2,15 @@
   "role": [
     {
       "id": 1,
-      "name": "manager"
+      "name": "Admin"
     },
     {
       "id": 2,
-      "name": "user"
+      "name": "User"
+    },
+    {
+      "name": "Manager",
+      "id": 3
     }
   ]
 }

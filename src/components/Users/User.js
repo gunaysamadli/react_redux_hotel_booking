@@ -37,7 +37,7 @@ export default function User() {
 
   const users = useSelector((state) => state.allUsers.users);
 
-  let isUser=users.filter((user)=>user.role!=="Super Admin")
+  let isUser=users.filter((user)=>user.RoleId!==1)
 
   const dispatch = useDispatch();
 
@@ -52,6 +52,8 @@ export default function User() {
       dispatch(deleteUser(id));
     }
   };
+
+  
 
   return (
     <div className="user-roles">
@@ -75,7 +77,7 @@ export default function User() {
                 </StyledTableCell>
                 <StyledTableCell align="right">{user.name}</StyledTableCell>
                 <StyledTableCell align="right">{user.email}</StyledTableCell>
-                <StyledTableCell align="right">{user.role}</StyledTableCell>
+                <StyledTableCell align="right">{user.RoleId===2 ? "User" : "Manager"}</StyledTableCell>
                 <StyledTableCell align="right" className="edit-user-icon">
                   <EditIcon onClick={() => history.push(`/editUser/${user.id}`)}/>
                 </StyledTableCell>

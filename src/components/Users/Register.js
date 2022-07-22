@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,13 +7,25 @@ import { getUsers, userAdded } from "../../redux/actions/userActions";
 import UserValidation from "../../Validations/UserValidation";
 
 const Register = () => {
+
+  const history = useHistory();
+
+  let dispatch = useDispatch();
+  
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
-    role: "User",
+    RoleId: 2,
     token: "",
   });
+
+  
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -20,9 +33,7 @@ const Register = () => {
     setValues({ ...values, [name]: value });
   };
 
-  const history = useHistory();
-
-  let dispatch = useDispatch();
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,10 +46,6 @@ const Register = () => {
       history.push("/");
     }
   };
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
 
   const users = useSelector((state) => state.allUsers.users);
 

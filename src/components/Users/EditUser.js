@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getSingleRole, roleUserEdit, setUserRole } from '../../redux/actions/userActions';
 import RoleValidation from '../../Validations/RoleValidation';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const EditUser = () => {
 
@@ -11,18 +14,22 @@ const EditUser = () => {
 
   const users = useSelector((state) => state.allUsers.users);
 
+  const [customRole,setCustomRole]=useState({
+    roleType:""
+  });
 
   const [values, setValues] = useState({
     name: "",
-    email: "",
-    role: ""
+    email: ""
   });
 
+  
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    setCustomRole({ ...customRole, [name]: value })
   };
 
   const history = useHistory();
@@ -68,6 +75,8 @@ const EditUser = () => {
     }
   }, [user]);
 
+  
+
   return (
     <div className="ui grid container">
       <div className="bron-forms">
@@ -97,17 +106,24 @@ const EditUser = () => {
             {errors.samePassword && <p className="error">{errors.samePassword}</p>}
           </div>
           <div className="form-inputs">
-            <input
-              value={values.role}
+            {/* <input
+              value={values.RoleId}
               onChange={handleChange}
-              name="role"
-              id="role"
-              type="text"
+              name="RoleId"
+              id="RoleId"
+              type="number"
               placeholder="Enter your role"
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
+            /> */}
+            <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
+            <FormControlLabel onChange={handleChange} name="Manager"
+                value="1"  control={<Radio />} label="Manager" />
+
+            <FormControlLabel onChange={handleChange} name="User"
+                value="2"   control={<Radio />} label="User"/>
+            </RadioGroup>
             
           </div>
+            
           <button type="submit">Edit User </button>
         </form>
         <button className="back" onClick={() => history.push("/user")}>

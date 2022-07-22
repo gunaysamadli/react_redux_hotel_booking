@@ -19,3 +19,12 @@ export const bronReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+// case ActionTypes.EDIT_BRON:
+      // return {
+      //   ...state,
+      //   bron: {
+      //     ...state.bron,
+      //     payload,
+      //   },
+      // };

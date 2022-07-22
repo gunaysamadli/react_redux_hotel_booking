@@ -11,6 +11,8 @@ const Floor = () => {
   useEffect(() => {
     dispatch(gettFloors());
   }, [dispatch]);
+
+  
   
   return (
     <div className="ui grid container">

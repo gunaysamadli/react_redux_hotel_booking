@@ -52,6 +52,7 @@ export default function RoleList() {
     }
   };
 
+
   return (
     <div className="user-roles">
       <Button onClick={() => history.push(`/createRole`)} style={{float:"right"}}>Create Role</Button>

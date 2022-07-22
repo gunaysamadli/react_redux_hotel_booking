@@ -4,6 +4,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
+import { getAdmin, getRoles, setAdmin } from "../redux/actions/roleActions";
 
 const Header = () => {
   const history = useHistory();
@@ -19,7 +20,6 @@ const Header = () => {
 
   const [keepUser, setKeepUser] = useState();
 
-
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token && users && users.length) {
@@ -34,8 +34,7 @@ const Header = () => {
     if (keepUser) {
       dispatch(setUser(keepUser));
     }
-  }, [keepUser,dispatch]);
-
+  }, [keepUser, dispatch]);
 
   const [values, setValues] = useState({
     token: "",
@@ -54,6 +53,13 @@ const Header = () => {
     setActive(!isActive);
   };
 
+  useEffect(() => {
+    dispatch(getRoles());
+  }, [dispatch]);
+
+  const Admin = useSelector((state) => state.allRoles.isAdmin);
+
+
   return (
     <div className="ui fixed menu">
       <div
@@ -70,14 +76,26 @@ const Header = () => {
 
               <div className="user-icon" onClick={handleToggle}>
                 <PersonIcon />
-                <p className="user-name">{user.name ? user.name : keepUser ? keepUser.name : ""}</p>
+                <p className="user-name">
+                  {user.name ? user.name : keepUser ? keepUser.name : ""}
+                </p>
                 <KeyboardArrowDownIcon />
               </div>
               <div className={isActive ? "user-detail " : "user-detail active"}>
-                {
-                  user.role==="Super Admin" ?  <div> <Link to={`/user`}>All Users</Link></div> : ""
-                } 
-                <div> <Link to={`/roleList`}>All Roles</Link></div>
+                {Admin &&  (user.RoleId === Admin.id ||  keepUser.RoleId === Admin.id)  ? (
+                  <>
+                    <div>
+                      {" "}
+                      <Link to={`/user`}>All Users</Link>
+                    </div>{" "}
+                    <div>
+                      {" "}
+                      <Link to={`/roleList`}>All Roles</Link>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
                 <div edge="end" color="inherit" onClick={() => handleSignOut()}>
                   <Link to="/">SignOut</Link>
                 </div>
