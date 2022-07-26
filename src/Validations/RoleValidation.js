@@ -6,12 +6,6 @@ const Roledation = (values, users,user) => {
   if (!values.email) {
     errors.email = "Email is required";
   }
-  if (!values.password) {
-    errors.password = "Password is required";
-  }
-  if (!values.role) {
-    errors.role = "Role is required";
-  }
   if (users) {
     let isUsers = users.filter((user) => user.email === values.email);
     if (isUsers && isUsers.length) {
