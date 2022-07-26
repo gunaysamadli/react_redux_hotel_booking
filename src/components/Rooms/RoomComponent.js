@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const RoomComponent = ({ room }) => {
   const { id, person, price } = room;
@@ -39,6 +40,9 @@ const RoomComponent = ({ room }) => {
           date.length > 0 ? (
             <div className="ui link cards">
               <div className="card">
+              <div className="card-whishlist">
+                <FavoriteBorderIcon/>
+                </div>
                 <Link to={`/room-detail/${id}`} className="image bron">
                   <ol>
                     {bronData.slice(0, 3).map((bron) => (
@@ -63,6 +67,10 @@ const RoomComponent = ({ room }) => {
           ) : (
             <div className="ui link cards">
               <div className="card">
+                <div className="card-whishlist">
+                  <FavoriteBorderIcon />
+                </div>
+
                 <Link to={`/room-detail/${id}`} className="image">
                   <ol>
                     {bronData.slice(0, 3).map((bron) => (

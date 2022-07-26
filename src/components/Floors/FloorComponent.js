@@ -11,7 +11,8 @@ const FloorComponent = ({ floor }) => {
         <div className="ui link cards">
           <div className="card">
             <div className="image floor">
-              <h1>Flour</h1>
+              <img src="https://media.istockphoto.com/photos/luxury-resort-picture-id104731717?k=20&m=104731717&s=612x612&w=0&h=40INtJRzhmU1O4Rj24zdY8vj4aGsWpPaEfojaVQ8xBo=" alt="aaa"/>
+              {/* <h1>Flour</h1> */}
             </div>
             <div className="content">
               <div className="header"> {title}</div>

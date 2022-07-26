@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
 import { getRoles } from "../redux/actions/roleActions";

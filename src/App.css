@@ -52,6 +52,7 @@ background-color: #727272;;
 
 #dark .ui.menu.fixed {
   background-color: rgb(30, 30, 30);
+
   border-bottom: 1px solid #fff;
 }
 
@@ -106,6 +107,16 @@ background-color: #727272;;
     overflow-y: scroll;
   }
 
+  .card {
+    position: relative;
+  }
+
+  .card-whishlist{
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    z-index: 3;
+  }
   .loader{
     display: flex;
     align-items: center;
