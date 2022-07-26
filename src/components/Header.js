@@ -4,7 +4,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
-import { getAdmin, getRoles, setAdmin } from "../redux/actions/roleActions";
+import { getRoles } from "../redux/actions/roleActions";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const Header = () => {
   const history = useHistory();
@@ -47,18 +48,13 @@ const Header = () => {
     history.push("/");
   };
 
-  const [isActive, setActive] = useState("false");
-
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
 
   useEffect(() => {
     dispatch(getRoles());
   }, [dispatch]);
 
   const Admin = useSelector((state) => state.allRoles.isAdmin);
-
+  console.log("user", user);
 
   return (
     <div className="ui fixed menu">
@@ -73,33 +69,38 @@ const Header = () => {
               <Link to={`/floor`}>All Flours</Link>
               <Link to={`/room`}>All Rooms</Link>
               <Link to={`/brons`}>All Brons</Link>
-
-              <div className="user-icon" onClick={handleToggle}>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{display:"flex",alignItems:"center"}}>
                 <PersonIcon />
-                <p className="user-name">
-                  {user.name ? user.name : keepUser ? keepUser.name : ""}
-                </p>
-                <KeyboardArrowDownIcon />
-              </div>
-              <div className={isActive ? "user-detail " : "user-detail active"}>
-                {Admin &&  (user.RoleId === Admin.id ||  keepUser.RoleId === Admin.id)  ? (
+                <p style={{padding:"0 10px"}}>{user.name ? user.name : keepUser ? keepUser.name : ""}</p>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                {Admin  &&  (user.RoleId === Admin.id)  ? (
                   <>
                     <div>
                       {" "}
-                      <Link to={`/user`}>All Users</Link>
+                      <Dropdown.Item>
+                        <Link to={`/user`}>All Users</Link>
+                      </Dropdown.Item>
                     </div>{" "}
                     <div>
                       {" "}
-                      <Link to={`/roleList`}>All Roles</Link>
+                      <Dropdown.Item >
+                        <Link to={`/roleList`}>All Roles</Link>
+                      </Dropdown.Item>
                     </div>
                   </>
                 ) : (
                   ""
                 )}
                 <div edge="end" color="inherit" onClick={() => handleSignOut()}>
-                  <Link to="/">SignOut</Link>
+                  <Dropdown.Item>
+                    <Link to="/">SignOut</Link>
+                  </Dropdown.Item>
                 </div>
-              </div>
+                </Dropdown.Menu>
+              </Dropdown>
             </>
           ) : (
             <div className="login-register">

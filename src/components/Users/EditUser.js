@@ -3,16 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import {
-  editUser,
   getSingleRole,
   roleUserEdit,
   setUserRole,
 } from "../../redux/actions/userActions";
 import RoleValidation from "../../Validations/RoleValidation";
-import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import { getRoles } from "@testing-library/react";
 
 const EditUser = () => {
   const history = useHistory();

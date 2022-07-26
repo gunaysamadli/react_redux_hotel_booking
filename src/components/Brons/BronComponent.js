@@ -48,17 +48,14 @@ const BronComponent = () => {
     setFilter((prev) => ({ ...prev, endDate: value }));
   };
 
-
   const handleClearFilter = () => {
     setFilter({
       startDate: null,
       endDate: null,
-      valuePrice:null
+      valuePrice: null,
     });
     setSubjectBrons(brons);
   };
-
-  
 
   const [valuePrice, setValuePrice] = useState([1, 1000]);
 
@@ -76,32 +73,30 @@ const BronComponent = () => {
 
   const handleFilter = () => {
     if (brons.length) {
-      let filtered = brons.filter((item) =>
-        (item.totalPrice >= valuePrice[0] && item.totalPrice <= valuePrice[1]) &&
-        (
-          filter.startDate == null
-          ? true
-          : moment(item.startDate)
-              .startOf("D")
-              .isSame(moment(filter.startDate).startOf("D")) &&
-            filter.startDate == null
-          ? true
-          : moment(item.endDate)
-              .endOf("D")
-              .isSame(moment(filter.endDate).endOf("D"))
-        )
+      let filtered = brons.filter(
+        (item) =>
+          item.totalPrice >= valuePrice[0] &&
+          item.totalPrice <= valuePrice[1] &&
+          (filter.startDate == null
+            ? true
+            : moment(item.startDate)
+                .startOf("D")
+                .isSame(moment(filter.startDate).startOf("D")) &&
+              filter.startDate == null
+            ? true
+            : moment(item.endDate)
+                .endOf("D")
+                .isSame(moment(filter.endDate).endOf("D")))
       );
       setSubjectBrons(filtered);
     }
   };
 
-
   const user = useSelector((state) => state.allUsers.user);
-  
+
   const Admin = useSelector((state) => state.allRoles.isAdmin);
 
   const Manager = useSelector((state) => state.allRoles.isManager);
-
 
   return (
     <>
@@ -167,29 +162,27 @@ const BronComponent = () => {
                         <p> End Date : {bron.endDate}</p>
                       </p>
                       <div className="bron-links">
-                      {
-                        user.RoleId===Admin.id || user.RoleId===Manager.id ? (
-                          
+                        {user.RoleId === Admin.id ||
+                        user.RoleId === Manager.id ? (
                           <div
-                          className="bron-link"
-                          onClick={() => history.push(`/editBron/${bron.id}`)}
-                        >
-                          Edit
-                        </div>
-                        ) : ""
-                      }
-                        {
-                          user.RoleId===Admin.id ? 
+                            className="bron-link"
+                            onClick={() => history.push(`/editBron/${bron.id}`)}
+                          >
+                            Edit
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                        {user.RoleId === Admin.id ? (
                           <div
-                          onClick={() => handleDeleted(bron.id)}
-                          className="bron-link"
-                        >
-                          UnBooking
-                        </div>
-                          : ""
-                        }
-                        
-                      
+                            onClick={() => handleDeleted(bron.id)}
+                            className="bron-link"
+                          >
+                            UnBooking
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>

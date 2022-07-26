@@ -3,6 +3,7 @@ import { ActionTypes } from "../contants/actionTypes";
 const initialState = {
   brons: [],
   bron: [],
+  loading: false,
 };
 
 export const bronReducer = (state = initialState, { type, payload }) => {
@@ -21,10 +22,10 @@ export const bronReducer = (state = initialState, { type, payload }) => {
 };
 
 // case ActionTypes.EDIT_BRON:
-      // return {
-      //   ...state,
-      //   bron: {
-      //     ...state.bron,
-      //     payload,
-      //   },
-      // };
+// return {
+//   ...state,
+//   bron: {
+//     ...state.bron,
+//     payload,
+//   },
+// };

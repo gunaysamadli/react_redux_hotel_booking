@@ -19,6 +19,7 @@ import  RoleList  from "./components/Roles/RoleList";
 import User from "./components/Users/User";
 import EditUser from "./components/Users/EditUser";
 import EditRole from "./components/Roles/EditRole";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const ThemeContext = createContext(null);
 

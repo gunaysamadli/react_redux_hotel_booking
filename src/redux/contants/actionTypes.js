@@ -22,6 +22,8 @@ export const ActionTypes = {
   ADD_ROLE: "ADD_ROLE",
   EDIT_ROLE: "EDIT_ROLE",
   DELETE_ROLE: "DELETE_ROLE",
+  SHOW_LOADER : "SHOW_LOADER",
+  HIDE_LOADER : "HIDE_LOADER"
 };
 
 export const RoleTypes = {

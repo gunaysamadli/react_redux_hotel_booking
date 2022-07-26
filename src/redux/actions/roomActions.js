@@ -15,6 +15,21 @@ export const selectedRoom = (room) => {
   };
 };
 
+
+
+export const showLoader = () => (dispatch) => {
+  dispatch({
+    type: ActionTypes.SHOW_LOADER,
+  });
+};
+
+export const hideLoader = () => (dispatch) => {
+  dispatch({
+    type: ActionTypes.HIDE_LOADER,
+  });
+};
+
+
 export const getSingleRoom= (id) => {
   return async function (dispatch) {
     await axios
