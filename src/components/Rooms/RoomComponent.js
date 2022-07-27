@@ -2,25 +2,53 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { addToWhishList } from "../../redux/actions/whishlistAction";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import {
+  addToWhishList,
+  deleteWhishList,
+} from "../../redux/actions/whishlistAction";
 
 const RoomComponent = ({ room }) => {
   const { id, person, price } = room;
 
-
   const brons = useSelector((state) => state.allBrons.brons);
 
+  const user = useSelector((state) => state.allUsers.user);
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
+  const handleAddToCart = () => {
+    const whishlist = localStorage.getItem("whishlist")
+      ? JSON.parse(localStorage.getItem("whishlist"))
+      : [];
 
-	const handleAddToCart = () => {
-		dispatch(addToWhishList(room));
-	};
+      let obj = {
+        id: room.id,
+        userId: user.id,
+      };
+
+    const duplicates = whishlist.filter(
+      (whishlistItem) => whishlistItem.id === obj.id
+    );
+
+    if (duplicates.length === 0) {
+      
+
+      whishlist.push(obj);
+
+      localStorage.setItem("whishlist", JSON.stringify(whishlist));
+      dispatch(addToWhishList(obj));
+    } else {
+      const updatedWhishList = whishlist.filter(
+        (whishlistItem) => whishlistItem.id !== obj.id
+      );
+
+      localStorage.setItem("whishlist", JSON.stringify(updatedWhishList));
+      dispatch(deleteWhishList(obj.id));
+    }
+  };
 
   const whishlist = useSelector((state) => state.allWhishlist.whishlist);
-
 
   const whishlistIcon = whishlist.filter((whishlistItem) => whishlistItem.id === room.id);
 
@@ -56,11 +84,12 @@ const RoomComponent = ({ room }) => {
           date.length > 0 ? (
             <div className="ui link cards">
               <div className="card">
-              <div className="card-whishlist" onClick={handleAddToCart}>
-                {
-                  whishlistIcon && whishlistIcon.length>0 ? <FavoriteIcon/> :  <FavoriteBorderIcon/> 
-                }
-                
+                <div className="card-whishlist" onClick={handleAddToCart}>
+                  {whishlistIcon && whishlistIcon.length > 0 ? (
+                    <FavoriteIcon />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </div>
                 <Link to={`/room-detail/${id}`} className="image bron">
                   <ol>
@@ -86,10 +115,12 @@ const RoomComponent = ({ room }) => {
           ) : (
             <div className="ui link cards">
               <div className="card">
-              <div className="card-whishlist" onClick={handleAddToCart}>
-                {
-                  whishlistIcon && whishlistIcon.length>0 ? <FavoriteIcon/> :  <FavoriteBorderIcon/>
-                }
+                <div className="card-whishlist" onClick={handleAddToCart}>
+                  {whishlistIcon && whishlistIcon.length > 0 ? (
+                    <FavoriteIcon />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </div>
 
                 <Link to={`/room-detail/${id}`} className="image">

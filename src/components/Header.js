@@ -6,6 +6,7 @@ import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
 import { getRoles } from "../redux/actions/roleActions";
 import Dropdown from "react-bootstrap/Dropdown";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { getWhisList } from "../redux/actions/whishlistAction";
 
 const Header = () => {
   const history = useHistory();
@@ -16,8 +17,6 @@ const Header = () => {
   }, [dispatch]);
 
   const users = useSelector((state) => state.allUsers.users);
-
-  const whishlist = useSelector((state) => state.allWhishlist.whishlist);
 
 
   const user = useSelector((state) => state.allUsers.user);
@@ -39,6 +38,7 @@ const Header = () => {
       dispatch(setUser(keepUser));
     }
   }, [keepUser, dispatch]);
+  
 
   const [values, setValues] = useState({
     token: "",
@@ -54,7 +54,16 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getRoles());
+    dispatch(getWhisList());
   }, [dispatch]);
+
+  const whishlist = useSelector((state) => state.allWhishlist.whishlist);
+
+  let whishlistUser=whishlist.filter((item)=>item.userId===user.id);
+
+  console.log(whishlistUser.length,"whishlistUser");
+
+ 
 
   const Admin = useSelector((state) => state.allRoles.isAdmin);
 
@@ -105,7 +114,7 @@ const Header = () => {
               </Dropdown>
               <div className="header-favory">
                 {
-                  whishlist.length>0 ? <span>{whishlist.length}</span> : ""
+                  whishlistUser && whishlistUser.length>0 ? <span>{whishlistUser.length}</span> : ""
                 }
               <FavoriteIcon/>
               </div>
