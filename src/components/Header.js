@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
 import { getRoles } from "../redux/actions/roleActions";
 import Dropdown from "react-bootstrap/Dropdown";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Header = () => {
   const history = useHistory();
@@ -15,6 +16,9 @@ const Header = () => {
   }, [dispatch]);
 
   const users = useSelector((state) => state.allUsers.users);
+
+  const whishlist = useSelector((state) => state.allWhishlist.whishlist);
+
 
   const user = useSelector((state) => state.allUsers.user);
 
@@ -53,7 +57,6 @@ const Header = () => {
   }, [dispatch]);
 
   const Admin = useSelector((state) => state.allRoles.isAdmin);
-  console.log("user", user);
 
   return (
     <div className="ui fixed menu">
@@ -100,6 +103,12 @@ const Header = () => {
                 </div>
                 </Dropdown.Menu>
               </Dropdown>
+              <div className="header-favory">
+                {
+                  whishlist.length>0 ? <span>{whishlist.length}</span> : ""
+                }
+              <FavoriteIcon/>
+              </div>
             </>
           ) : (
             <div className="login-register">

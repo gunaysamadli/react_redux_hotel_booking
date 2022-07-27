@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { addToWhishList } from "../../redux/actions/whishlistAction";
 
 const RoomComponent = ({ room }) => {
   const { id, person, price } = room;
 
+
   const brons = useSelector((state) => state.allBrons.brons);
+
+
+	const dispatch = useDispatch();
+
+
+	const handleAddToCart = () => {
+		dispatch(addToWhishList(room));
+	};
+
+  const whishlist = useSelector((state) => state.allWhishlist.whishlist);
+
+
+  const whishlistIcon = whishlist.filter((whishlistItem) => whishlistItem.id === room.id);
 
   const [bronData, setBronData] = useState([]);
 
@@ -40,8 +56,11 @@ const RoomComponent = ({ room }) => {
           date.length > 0 ? (
             <div className="ui link cards">
               <div className="card">
-              <div className="card-whishlist">
-                <FavoriteBorderIcon/>
+              <div className="card-whishlist" onClick={handleAddToCart}>
+                {
+                  whishlistIcon && whishlistIcon.length>0 ? <FavoriteIcon/> :  <FavoriteBorderIcon/> 
+                }
+                
                 </div>
                 <Link to={`/room-detail/${id}`} className="image bron">
                   <ol>
@@ -67,8 +86,10 @@ const RoomComponent = ({ room }) => {
           ) : (
             <div className="ui link cards">
               <div className="card">
-                <div className="card-whishlist">
-                  <FavoriteBorderIcon />
+              <div className="card-whishlist" onClick={handleAddToCart}>
+                {
+                  whishlistIcon && whishlistIcon.length>0 ? <FavoriteIcon/> :  <FavoriteBorderIcon/>
+                }
                 </div>
 
                 <Link to={`/room-detail/${id}`} className="image">

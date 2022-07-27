@@ -1,20 +1,21 @@
 import { ActionTypes } from "../contants/actionTypes";
 
 const initialState = {
-  favoryItems: [],
-  favoryItem: {},
-  cart: [],
+  whishlist: [],
 };
+
+if (localStorage.getItem("whishlist")) {
+  initialState.whishlist = JSON.parse(localStorage.getItem("whishlist"));
+} else {
+  initialState.whishlist = [];
+}
 
 export const whishlistReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.ADD_WHISHLIST:
-      let tempCart = state.cart.filter((item) => item.id === payload.id);
-      if (tempCart < 1) {
-        return { ...state.cart,payload };
-      }else{
-        return state.cart
-      }
+      return { whishlist: [...payload] };
+    case ActionTypes.REMOVE_WHISHLIST:
+      return  { whishlist: [...payload] };
     default:
       return state;
   }

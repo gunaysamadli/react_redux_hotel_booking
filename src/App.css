@@ -449,3 +449,23 @@ ol li p{
 #dark .user-icon{
   color: white;
 }
+
+.header-favory{
+  padding-left: 30px;
+  position: relative;
+}
+.header-favory svg{
+  width: 30px;
+  height: 30px;
+}
+.header-favory span{
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background-color: green;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 15px;
+  right: -14px;
+  bottom: 12px;
+}

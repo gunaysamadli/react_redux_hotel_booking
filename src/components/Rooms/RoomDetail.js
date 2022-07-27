@@ -65,7 +65,7 @@ const RoomDetail = () => {
           <div className="">
           <div className="bron-bodies ">
               {bronData.map((bron) => (
-                <div className="bron-body bron">
+                <div className="bron-body bron" key={bron.id}>
                   <p className="bron-item">FullName : <span>{bron.fullName}</span></p>
                   <p className="bron-item">Start Date : <span>{bron.startDate}</span></p>                   
                   <p className="bron-item">End Date : <span>{bron.endDate}</span> </p>
@@ -89,7 +89,7 @@ const RoomDetail = () => {
           <div className="">
           <div className="bron-bodies">
               {bronData.map((bron) => (
-                <div className="bron-body">
+                <div className="bron-body" key={bron.id}>
                   <p className="bron-item">FullName : <span>{bron.fullName}</span></p>
                   <p className="bron-item">Start Date : <span>{bron.startDate}</span></p>                   
                   <p className="bron-item">End Date : <span>{bron.endDate}</span> </p>
