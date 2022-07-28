@@ -469,3 +469,8 @@ ol li p{
   right: -14px;
   bottom: 12px;
 }
+
+#dark .header-favory svg{
+  color: white;
+}
+

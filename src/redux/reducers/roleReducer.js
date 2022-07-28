@@ -15,15 +15,9 @@ export const roleReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         roles: payload,
-        isAdmin: state.roles.filter(
-          (role) => role.name === RoleTypes.IS_ADMIN
-        )[0],
-        isManager: state.roles.filter(
-          (role) => role.name === RoleTypes.IS_MANAGER
-        )[0],
-        isUser: state.roles.filter(
-          (role) => role.name === RoleTypes.IS_USER
-        )[0],
+        isAdmin: state.roles.filter((role) => role.name === RoleTypes.IS_ADMIN)[0],
+        isManager: state.roles.filter((role) => role.name === RoleTypes.IS_MANAGER)[0],
+        isUser: state.roles.filter((role) => role.name === RoleTypes.IS_USER)[0],
       };
     case ActionTypes.SET_ROLE:
       return { ...state, role: payload };

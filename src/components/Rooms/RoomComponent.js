@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {
-  addToWhishList,
-  deleteWhishList,
-} from "../../redux/actions/whishlistAction";
+import {addToWhishList,deleteWhishList} from "../../redux/actions/whishlistAction";
 import { v4 as uuid } from "uuid";
 
 const RoomComponent = ({ room }) => {
@@ -21,19 +18,7 @@ const RoomComponent = ({ room }) => {
 
   const whishlistData = useSelector((state) => state.allWhishlist.whishlist);
 
-  const findUserWhishList =(user && whishlistData) && whishlistData.filter((whishlistItem) => whishlistItem.userId === user.id);
-
-  console.log("findUserWhishList",findUserWhishList);
-
-  const whishlistIcon = findUserWhishList && findUserWhishList.filter((whishlistItem) => whishlistItem.roomId === room.id);
-
-  console.log("whishlistIcon",whishlistIcon);
-
-
   const handleAddToWhishList = () => {
-    const whishlist = localStorage.getItem("whishlist")
-      ? JSON.parse(localStorage.getItem("whishlist"))
-      : [];
 
     let obj = {
       id: uuid(),
@@ -41,32 +26,20 @@ const RoomComponent = ({ room }) => {
       userId: user.id,
     };
 
-    const duplicates = whishlist.filter(
-      (whishlistItem) => whishlistItem.roomId === obj.roomId && whishlistItem.userId===user.id
-    );
+    const duplicates = whishlistData.filter((whishlistItem) => whishlistItem.roomId === obj.roomId && whishlistItem.userId===user.id);
 
-    if (duplicates.length === 0) {
-      whishlist.push(obj);
+    if (duplicates && duplicates.length === 0) {
 
-      localStorage.setItem("whishlist", JSON.stringify(whishlist));
+      whishlistData.push(obj);
+
       dispatch(addToWhishList(obj));
 
     } else {
-      const updatedWhishList = whishlist.filter(
-        (whishlistItem) => whishlistItem.roomId !== obj.roomId && whishlistItem.userId===user.id
-      );
+      const findId = whishlistData.filter((whishlistItem) => whishlistItem.roomId === obj.roomId && whishlistItem.userId===user.id);
 
-      const findId = whishlist.filter(
-        (whishlistItem) => whishlistItem.roomId === obj.roomId && whishlistItem.userId===user.id
-      );
-     
-
-      localStorage.setItem("whishlist", JSON.stringify(updatedWhishList));
       dispatch(deleteWhishList(findId[0].id));
     }
   };
-
-  
 
 
   const [bronData, setBronData] = useState([]);
@@ -93,6 +66,10 @@ const RoomComponent = ({ room }) => {
   let date = bronData.filter(
     (bron) => bron.startDate <= newDate && bron.endDate > newDate
   );
+
+  const findUserWhishList =(user && whishlistData) && whishlistData.filter((whishlistItem) => whishlistItem.userId === user.id);
+
+  const whishlistIcon = findUserWhishList && findUserWhishList.filter((whishlistItem) => whishlistItem.roomId === room.id);
 
   return (
     <div className="four wide column" key={id}>

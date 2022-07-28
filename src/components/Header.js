@@ -61,7 +61,6 @@ const Header = () => {
 
   let whishlistUser=user && whishlist.filter((item)=>item.userId===user.id);
 
-
   const Admin = useSelector((state) => state.allRoles.isAdmin);
 
   return (
@@ -95,7 +94,7 @@ const Header = () => {
                     <div>
                       {" "}
                       <Dropdown.Item >
-                        <Link to={`/roleList`}>All Roles</Link>
+                        <Link to={`/roleList`} >All Roles</Link>
                       </Dropdown.Item>
                     </div>
                   </>
@@ -104,17 +103,17 @@ const Header = () => {
                 )}
                 <div edge="end" color="inherit" onClick={() => handleSignOut()}>
                   <Dropdown.Item>
-                    <Link to="/">SignOut</Link>
+                    <Link to="/" >SignOut</Link>
                   </Dropdown.Item>
                 </div>
                 </Dropdown.Menu>
               </Dropdown>
-              <div className="header-favory">
+              <Link to="/whishList" className="header-favory">
                 {
                  whishlistUser && whishlistUser.length>0 ? <span>{whishlistUser.length}</span> : ""
                 }
               <FavoriteIcon/>
-              </div>
+              </Link>
             </>
           ) : (
             <div className="login-register">
