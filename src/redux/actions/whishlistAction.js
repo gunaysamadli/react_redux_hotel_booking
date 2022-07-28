@@ -37,6 +37,7 @@ export const addToWhishList  = (whishlistItem)  => {
       .post(`http://localhost:3000/whishlist`, whishlistItem)
       .then((res) => {
         dispatch(addWhishList());
+        dispatch(getWhisList());
       })
       .catch((error) => console.log(error));
   };

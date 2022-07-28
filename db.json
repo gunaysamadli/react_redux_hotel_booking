@@ -13,5 +13,31 @@
       "id": 3
     }
   ],
-  "whishlist": []
+  "whishlist": [
+    {
+      "id": "a163e6ee-98c6-41b4-8330-e15a9d8df8c3",
+      "roomId": "1",
+      "userId": "5"
+    },
+    {
+      "id": "7abd72b3-591f-43a5-89a5-6abb902ae9d4",
+      "roomId": "2",
+      "userId": "5"
+    },
+    {
+      "id": "f8dd64f1-95b5-496b-9767-8135cb22fd13",
+      "roomId": "3",
+      "userId": "5"
+    },
+    {
+      "id": "7bf14470-1d4c-4cb1-98e3-4f08587286e5",
+      "roomId": "1",
+      "userId": "4"
+    },
+    {
+      "id": "f0ea17bb-c757-4dc0-85c5-ba05c1a26f44",
+      "roomId": "2",
+      "userId": "4"
+    }
+  ]
 }

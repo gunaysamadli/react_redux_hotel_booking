@@ -7,50 +7,67 @@ import {
   addToWhishList,
   deleteWhishList,
 } from "../../redux/actions/whishlistAction";
+import { v4 as uuid } from "uuid";
 
 const RoomComponent = ({ room }) => {
+
   const { id, person, price } = room;
+
+  const dispatch=useDispatch()
 
   const brons = useSelector((state) => state.allBrons.brons);
 
   const user = useSelector((state) => state.allUsers.user);
 
-  const dispatch = useDispatch();
+  const whishlistData = useSelector((state) => state.allWhishlist.whishlist);
 
-  const handleAddToCart = () => {
+  const findUserWhishList =(user && whishlistData) && whishlistData.filter((whishlistItem) => whishlistItem.userId === user.id);
+
+  console.log("findUserWhishList",findUserWhishList);
+
+  const whishlistIcon = findUserWhishList && findUserWhishList.filter((whishlistItem) => whishlistItem.roomId === room.id);
+
+  console.log("whishlistIcon",whishlistIcon);
+
+
+  const handleAddToWhishList = () => {
     const whishlist = localStorage.getItem("whishlist")
       ? JSON.parse(localStorage.getItem("whishlist"))
       : [];
 
-      let obj = {
-        id: room.id,
-        userId: user.id,
-      };
+    let obj = {
+      id: uuid(),
+      roomId: room.id,
+      userId: user.id,
+    };
 
     const duplicates = whishlist.filter(
-      (whishlistItem) => whishlistItem.id === obj.id
+      (whishlistItem) => whishlistItem.roomId === obj.roomId && whishlistItem.userId===user.id
     );
 
     if (duplicates.length === 0) {
-      
-
       whishlist.push(obj);
 
       localStorage.setItem("whishlist", JSON.stringify(whishlist));
       dispatch(addToWhishList(obj));
+
     } else {
       const updatedWhishList = whishlist.filter(
-        (whishlistItem) => whishlistItem.id !== obj.id
+        (whishlistItem) => whishlistItem.roomId !== obj.roomId && whishlistItem.userId===user.id
       );
 
+      const findId = whishlist.filter(
+        (whishlistItem) => whishlistItem.roomId === obj.roomId && whishlistItem.userId===user.id
+      );
+     
+
       localStorage.setItem("whishlist", JSON.stringify(updatedWhishList));
-      dispatch(deleteWhishList(obj.id));
+      dispatch(deleteWhishList(findId[0].id));
     }
   };
 
-  const whishlist = useSelector((state) => state.allWhishlist.whishlist);
+  
 
-  const whishlistIcon = whishlist.filter((whishlistItem) => whishlistItem.id === room.id);
 
   const [bronData, setBronData] = useState([]);
 
@@ -84,8 +101,8 @@ const RoomComponent = ({ room }) => {
           date.length > 0 ? (
             <div className="ui link cards">
               <div className="card">
-                <div className="card-whishlist" onClick={handleAddToCart}>
-                  {whishlistIcon && whishlistIcon.length > 0 ? (
+                <div className="card-whishlist" onClick={handleAddToWhishList}>
+                  { whishlistIcon && whishlistIcon.length > 0 ? (
                     <FavoriteIcon />
                   ) : (
                     <FavoriteBorderIcon />
@@ -115,8 +132,8 @@ const RoomComponent = ({ room }) => {
           ) : (
             <div className="ui link cards">
               <div className="card">
-                <div className="card-whishlist" onClick={handleAddToCart}>
-                  {whishlistIcon && whishlistIcon.length > 0 ? (
+                <div className="card-whishlist" onClick={handleAddToWhishList}>
+                { whishlistIcon && whishlistIcon.length > 0 ? (
                     <FavoriteIcon />
                   ) : (
                     <FavoriteBorderIcon />
