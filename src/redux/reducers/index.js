@@ -5,6 +5,7 @@ import { roomReducer } from "./roomReducer";
 import { userReducer } from "./userReducer";
 import { roleReducer } from "./roleReducer";
 import { whishlistReducer } from "./whishlistReducer";
+import { reviewReducer } from "./reviewReducer";
 
 
 const reducers = combineReducers({
@@ -14,7 +15,8 @@ const reducers = combineReducers({
   allBrons: bronReducer,
   allUsers:userReducer,
   allRoles:roleReducer,
-  allWhishlist:whishlistReducer
+  allWhishlist:whishlistReducer,
+  allReviews:reviewReducer
   
 });
 

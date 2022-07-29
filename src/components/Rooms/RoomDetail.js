@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectedRoom } from "../../redux/actions/roomActions";
 import { Link } from "react-router-dom";
 import { getBrons } from "../../redux/actions/bronActions";
+import {  getReviews } from "../../redux/actions/reviewAction";
+import ReviewComponent from "../Reviews/ReviewComponent";
+import Review from "../Reviews/Review";
 
 const RoomDetail = () => {
 
@@ -57,6 +60,15 @@ const RoomDetail = () => {
   let date = bronData.filter(
     (bron) => bron.startDate <= newDate && bron.endDate > newDate
   );
+
+  const reviews = useSelector((state) => state.allReviews.reviews);
+
+  let roomReview= reviews && reviews.filter((review)=>review.roomId===id)
+
+
+  useEffect(() => {
+    dispatch(getReviews());
+  }, [dispatch]);
 
   return (
     <div className="ui grid container">
@@ -123,6 +135,14 @@ const RoomDetail = () => {
           </div>
         </div>
       )}
+     
+     <div className="ui grid container">
+        <h1>Customer Reviews</h1>
+      {roomReview && roomReview.length> 0
+        ? roomReview.map((review) => <ReviewComponent review={review} key={review.id} />)
+        : null}
+        <Review RoomId={id} />
+    </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
 import { getRoles } from "../redux/actions/roleActions";
 import Dropdown from "react-bootstrap/Dropdown";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { getWhisList, setWhishListes } from "../redux/actions/whishlistAction";
+import { getWhisList } from "../redux/actions/whishlistAction";
 
 const Header = () => {
   const history = useHistory();
@@ -59,7 +59,7 @@ const Header = () => {
 
   const whishlist = useSelector((state) => state.allWhishlist.whishlist);
 
-  let whishlistUser=user && whishlist.filter((item)=>item.userId===user.id);
+  let whishlistUser=(user && whishlist ) && whishlist.filter((item)=>item.userId===user.id);
 
   const Admin = useSelector((state) => state.allRoles.isAdmin);
 
@@ -95,6 +95,9 @@ const Header = () => {
                       {" "}
                       <Dropdown.Item >
                         <Link to={`/roleList`} >All Roles</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link to={`/reviewPage`}>All Reviews</Link>
                       </Dropdown.Item>
                     </div>
                   </>

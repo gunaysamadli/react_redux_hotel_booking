@@ -21,6 +21,7 @@ import EditUser from "./components/Users/EditUser";
 import EditRole from "./components/Roles/EditRole";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WhishList from "./components/WhishList/WhishList";
+import ReviewPage from "./components/Reviews/ReviewPage";
 
 export const ThemeContext = createContext(null);
 
@@ -59,6 +60,7 @@ function App() {
               <Route path="/editUser/:id" component={EditUser} />
               <Route path="/editRole/:id" component={EditRole} />
               <Route path="/user" component={User} />
+              <Route path="/reviewPage" component={ReviewPage} />
               <Route path="/createRole" component={CreateRole} />
               <Route path="/roleList" component={RoleList} />
               <Route path="/brons" component={BronComponent} />
