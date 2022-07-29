@@ -117,6 +117,9 @@ const WhishListComponent = ({ room }) => {
           ) : (
             <div className="ui link cards">
               <div className="card">
+              <div className="card-whishlist"  onClick={() => handleDeleted(whishlistIcon[0].id)}>
+                    <FavoriteIcon />
+                  </div>
                 <Link to={`/room-detail/${id}`} className="image"></Link>
                 <div className="content">
                   <div className="header">Person Count : {person}</div>

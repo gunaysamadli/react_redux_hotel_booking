@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers, setUser, userEdit } from "../redux/actions/userActions";
 import { getRoles } from "../redux/actions/roleActions";
 import Dropdown from "react-bootstrap/Dropdown";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { getWhisList } from "../redux/actions/whishlistAction";
 
 const Header = () => {
@@ -17,7 +17,6 @@ const Header = () => {
   }, [dispatch]);
 
   const users = useSelector((state) => state.allUsers.users);
-
 
   const user = useSelector((state) => state.allUsers.user);
 
@@ -38,7 +37,6 @@ const Header = () => {
       dispatch(setUser(keepUser));
     }
   }, [keepUser, dispatch]);
-  
 
   const [values, setValues] = useState({
     token: "",
@@ -51,7 +49,6 @@ const Header = () => {
     history.push("/");
   };
 
-
   useEffect(() => {
     dispatch(getRoles());
     dispatch(getWhisList());
@@ -59,7 +56,7 @@ const Header = () => {
 
   const whishlist = useSelector((state) => state.allWhishlist.whishlist);
 
-  let whishlistUser=(user && whishlist ) && whishlist.filter((item)=>item.userId===user.id);
+  let whishlistUser =user && whishlist && whishlist.filter((item) => item.userId === user.id);
 
   const Admin = useSelector((state) => state.allRoles.isAdmin);
 
@@ -75,47 +72,66 @@ const Header = () => {
             <>
               <Link to={`/floor`}>All Flours</Link>
               <Link to={`/room`}>All Rooms</Link>
-              <Link to={`/brons`}>All Brons</Link>
+              {
+                Admin && user.RoleId !== Admin.id ? <Link to={`/userBron`}>My Brons</Link> : ""
+              }
+              
               <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{display:"flex",alignItems:"center"}}>
-                <PersonIcon />
-                <p style={{padding:"0 10px"}}>{user.name ? user.name : keepUser ? keepUser.name : ""}</p>
+                <Dropdown.Toggle
+                  variant="success"
+                  id="dropdown-basic"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <PersonIcon />
+                  <p style={{ padding: "0 10px" }}>
+                    {user.name ? user.name : keepUser ? keepUser.name : ""}
+                  </p>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                {Admin  &&  (user.RoleId === Admin.id)  ? (
-                  <>
-                    <div>
-                      {" "}
-                      <Dropdown.Item>
-                        <Link to={`/user`}>All Users</Link>
-                      </Dropdown.Item>
-                    </div>{" "}
-                    <div>
-                      {" "}
-                      <Dropdown.Item >
-                        <Link to={`/roleList`} >All Roles</Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link to={`/reviewPage`}>All Reviews</Link>
-                      </Dropdown.Item>
-                    </div>
-                  </>
-                ) : (
-                  ""
-                )}
-                <div edge="end" color="inherit" onClick={() => handleSignOut()}>
-                  <Dropdown.Item>
-                    <Link to="/" >SignOut</Link>
-                  </Dropdown.Item>
-                </div>
+                  {Admin && user.RoleId === Admin.id ? (
+                    <>
+                      <div>
+                        {" "}
+                        <Dropdown.Item>
+                          <Link to={`/brons`}>All Brons</Link>
+                        </Dropdown.Item>
+                        
+                      </div>{" "}
+                      <div>
+                        {" "}
+                        <Dropdown.Item>
+                          <Link to={`/user`}>All Users</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link to={`/roleList`}>All Roles</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link to={`/reviewPage`}>All Reviews</Link>
+                        </Dropdown.Item>
+                      </div>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                  <div
+                    edge="end"
+                    color="inherit"
+                    onClick={() => handleSignOut()}
+                  >
+                    <Dropdown.Item>
+                      <Link to="/">SignOut</Link>
+                    </Dropdown.Item>
+                  </div>
                 </Dropdown.Menu>
               </Dropdown>
               <Link to="/whishList" className="header-favory">
-                {
-                 whishlistUser && whishlistUser.length>0 ? <span>{whishlistUser.length}</span> : ""
-                }
-              <FavoriteIcon/>
+                {whishlistUser && whishlistUser.length > 0 ? (
+                  <span>{whishlistUser.length}</span>
+                ) : (
+                  ""
+                )}
+                <FavoriteIcon />
               </Link>
             </>
           ) : (

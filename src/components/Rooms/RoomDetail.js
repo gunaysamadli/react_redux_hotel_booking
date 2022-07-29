@@ -63,15 +63,16 @@ const RoomDetail = () => {
 
   const reviews = useSelector((state) => state.allReviews.reviews);
 
-  let roomReview= reviews && reviews.filter((review)=>review.roomId===id)
+  let roomReview= reviews && reviews.filter((review)=>review.roomId===id);
 
+ 
 
   useEffect(() => {
     dispatch(getReviews());
   }, [dispatch]);
 
   return (
-    <div className="ui grid container">
+    <div className="ui grid container ">
       {bronData.length > 0 ? (
          date.length > 0 ? (
           <div className="">
@@ -136,12 +137,13 @@ const RoomDetail = () => {
         </div>
       )}
      
-     <div className="ui grid container">
+     <div className="ui grid container review-container">
         <h1>Customer Reviews</h1>
       {roomReview && roomReview.length> 0
         ? roomReview.map((review) => <ReviewComponent review={review} key={review.id} />)
         : null}
-        <Review RoomId={id} />
+       <Review RoomId={id} />
+        
     </div>
     </div>
   );

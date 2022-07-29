@@ -10,6 +10,8 @@ import { selectedRoom } from "../../redux/actions/roomActions";
 const Bron = () => {
   const { roomId } = useParams();
 
+  let user = useSelector((state) => state.allUsers.user);
+
   let room = useSelector((state) => state.allRooms.current);
   const { price } = room;
   const fetchRoom = async (id) => {
@@ -26,11 +28,11 @@ const Bron = () => {
   }, [roomId]);
 
   const [values, setValues] = useState({
-    fullName: "",
     startDate: "",
     endDate: "",
     totalPrice: "",
     RoomId: roomId,
+    userId:user.id
   });
 
   const brons = useSelector((state) => state.allBrons.brons);
@@ -57,7 +59,7 @@ const Bron = () => {
       setErrors(newErrors);
     } else {
       dispatch(bronAdded(values));
-      history.push("/");
+      history.push("/room");
     }
   };
 
@@ -77,14 +79,11 @@ const Bron = () => {
           <h4>Book Number : {roomId}</h4>
           <div className="form-inputs">
             <input
-              value={values.fullName}
-              onChange={handleChange}
-              name="fullName"
-              id="fullName"
+              value={user.name}
+              name="name"
+              id="name"
               type="text"
-              placeholder="Enter your FullName"
             />
-            {errors.fullName && <p className="error">{errors.fullName}</p>}
           </div>
           <div className="form-dates">
             <div className="form-inputs">

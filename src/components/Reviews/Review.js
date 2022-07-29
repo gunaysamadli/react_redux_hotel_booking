@@ -7,7 +7,6 @@ import moment from "moment";
 
 const Review = ({RoomId}) => {
 
-
   let user = useSelector((state) => state.allUsers.user);
 
 
@@ -15,7 +14,7 @@ const Review = ({RoomId}) => {
     commend: "",
     date:  moment(new Date()).format('DD.MM.YYYY HH:MM'),
     roomId:RoomId,
-    userId:user.id
+    userId: user.id
   });
 
 

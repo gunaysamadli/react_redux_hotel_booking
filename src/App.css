@@ -68,10 +68,10 @@ background-color: #727272;;
 }
 
 .switch{
-  z-index: 1000;
   top: 20px;
   left: 87%; 
   position: fixed !important;
+  z-index: 1000;
 }
 .switch-label{
   position: fixed;
@@ -113,9 +113,9 @@ background-color: #727272;;
 
   .card-whishlist{
     position: absolute;
-    top: 5px;
-    right: 15px;
-    z-index: 3;
+    top: 15px;
+    right: 20px;
+    z-index: 100 !important;
   }
   .loader{
     display: flex;
@@ -512,4 +512,10 @@ form textarea{
 .review-form{
   margin-bottom: 50px;
 }
+
+
+.review-container{
+  margin-bottom: 40px !important;
+}
+
 

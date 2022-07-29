@@ -18,16 +18,16 @@ const ReviewComponent = ({ review }) => {
 
   return (
     <div className="review" key={id}>
-      <div className="review-body">
-            <div className="review-user-date">
-                <h4 className="review-user"> {findReviewUser[0].name}</h4>
-                <div className="review-date"> {date}</div>
-            </div>
-            <div className="review-text">
-              <div className="">{commend}</div>
-            </div>
+    <div className="review-body">
+          <div className="review-user-date">
+              <h4 className="review-user"> {findReviewUser[0].name}</h4>
+              <div className="review-date"> {date}</div>
           </div>
-    </div>
+          <div className="review-text">
+            <div className="">{commend}</div>
+          </div>
+        </div>
+  </div>
   );
 };
 export default ReviewComponent;

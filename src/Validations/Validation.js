@@ -1,8 +1,5 @@
 const Validation = (values, isBron) => {
   let errors = {};
-  if (!values.fullName) {
-    errors.fullName = "Full name is required";
-  }
   if (!values.startDate) {
     errors.startDate = "Start Date is required";
   }

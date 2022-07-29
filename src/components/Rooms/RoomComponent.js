@@ -74,17 +74,18 @@ const RoomComponent = ({ room }) => {
   return (
     <div className="four wide column" key={id}>
       <div>
+      <div className="card-whishlist" onClick={handleAddToWhishList}>
+        { whishlistIcon && whishlistIcon.length > 0 ? (
+          <FavoriteIcon />
+          ) : (
+          <FavoriteBorderIcon />
+          )}
+        </div>
         {bronData.length > 0 ? (
           date.length > 0 ? (
             <div className="ui link cards">
               <div className="card">
-                <div className="card-whishlist" onClick={handleAddToWhishList}>
-                  { whishlistIcon && whishlistIcon.length > 0 ? (
-                    <FavoriteIcon />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
-                </div>
+                
                 <Link to={`/room-detail/${id}`} className="image bron">
                   <ol>
                     {bronData.slice(0, 3).map((bron) => (
@@ -109,14 +110,6 @@ const RoomComponent = ({ room }) => {
           ) : (
             <div className="ui link cards">
               <div className="card">
-                <div className="card-whishlist" onClick={handleAddToWhishList}>
-                { whishlistIcon && whishlistIcon.length > 0 ? (
-                    <FavoriteIcon />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
-                </div>
-
                 <Link to={`/room-detail/${id}`} className="image">
                   <ol>
                     {bronData.slice(0, 3).map((bron) => (
